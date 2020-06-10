@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
 
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox prefHeight="336.0" prefWidth="546.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Menu">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Acompanhar Entregas" />
+                        <MenuItem mnemonicParsing="false" text="Clientes VIP" />
+                        <MenuItem mnemonicParsing="false" text="Estoque" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Cadastro">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Novo Cliente" />
+                        <MenuItem mnemonicParsing="false" text="Novo Produto" />
+                        <MenuItem mnemonicParsing="false" text="Novo Entregador" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
