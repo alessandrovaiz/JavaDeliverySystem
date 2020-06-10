@@ -5,8 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TelaPrincipalController">
    <content>
       <VBox prefHeight="336.0" prefWidth="546.0">
          <children>
@@ -14,21 +13,20 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Menu">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Acompanhar Entregas" />
-                        <MenuItem mnemonicParsing="false" text="Clientes VIP" />
-                        <MenuItem mnemonicParsing="false" text="Estoque" />
+                    <MenuItem fx:id="menuIAcompanharEntregas" mnemonicParsing="false" onAction="#onMenuIAcompanharEntregasAction" text="Acompanhar Entregas" />
+                     <MenuItem fx:id="menuIVendedoresDisponiveis" mnemonicParsing="false" onAction="#onMenuIVendedoresDisponiveisAction" text="Vendedores Disponíveis" />
+                        <MenuItem fx:id="menuIClientesVip" mnemonicParsing="false" onAction="#onMenuIClientesVipAction" text="Clientes VIP" />
+                        <MenuItem fx:id="menuIEstoque" mnemonicParsing="false" onAction="#onMenuIEstoqueAction" text="Estoque" />
+                         <MenuItem fx:id="menuIProducao" mnemonicParsing="false" onAction="#onMenuIProducaoAction" text="Produção" />
+                          
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Cadastro">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Novo Cliente" />
-                        <MenuItem mnemonicParsing="false" text="Novo Produto" />
-                        <MenuItem mnemonicParsing="false" text="Novo Entregador" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="menuINovoPedido" mnemonicParsing="false" onAction="#onMenuINovoPedidoAction" text="Novo Pedido" />
+                    <MenuItem fx:id="menuINovoCliente" mnemonicParsing="false" onAction="#onMenuINovoClienteAction" text="Novo Cliente" />
+                        <MenuItem fx:id="menuINovoProduto" mnemonicParsing="false" onAction="#onMenuINovoProdutoAction" text="Novo Produto" />
+                        <MenuItem fx:id="menuINovoEntregador" mnemonicParsing="false" onAction="#onMenuINovoEntregadorAction" text="Novo Entregador" />
                   </items>
                 </Menu>
               </menus>
