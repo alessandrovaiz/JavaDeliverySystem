@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.ScrollPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
+import model.servicos.PedidosServico;
 
 public class TelaPrincipalController implements Initializable {
 
@@ -73,7 +73,7 @@ public class TelaPrincipalController implements Initializable {
 	
 	@FXML
 	public void onMenuIPedidosAction() {
-		carregaView("/gui/Pedidos.fxml");
+		carregaView2("/gui/Pedidos.fxml");
 	}
 	
 	@FXML
@@ -114,6 +114,30 @@ public class TelaPrincipalController implements Initializable {
 			mainNavBar.getChildren().add(mainMenu);
 			mainNavBar.getChildren().addAll(newVBox.getChildren());
 			
+			
+		}catch(IOException e) {
+			Alertas.showAlert("IO Exception", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
+		}
+	}
+	
+	private void carregaView2(String absoluteName) {
+		try {
+		
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			VBox newVBox = loader.load();
+			
+			Scene mainScene = Main.getMainScene();
+			VBox mainNavBar = Main.getNavBar();
+		
+			
+			Node mainMenu = mainNavBar.getChildren().get(0);
+			mainNavBar.getChildren().clear();
+			mainNavBar.getChildren().add(mainMenu);
+			mainNavBar.getChildren().addAll(newVBox.getChildren());
+			
+			PedidosController controller = loader.getController();
+			controller.setPedidoServico(new PedidosServico());
+			controller.updateTableView();
 			
 		}catch(IOException e) {
 			Alertas.showAlert("IO Exception", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
