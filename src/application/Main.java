@@ -6,9 +6,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+	
+	private static Scene mainScene;
+	private static VBox navBar;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -18,15 +22,24 @@ public class Main extends Application {
 			scrollPane.setFitToHeight(true);
 			scrollPane.setFitToWidth(true);
 			
-			Scene mainScene = new Scene(scrollPane); // cena principal
+			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("AfterCrack Delivery");
+			primaryStage.setTitle("Sample JavaFX application");
 			primaryStage.show();
+			
+			navBar = (VBox)((ScrollPane) mainScene.getRoot()).getContent();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	public static VBox getNavBar() {
+		return navBar;
+	}
+	public static Scene getMainScene() {
+		return mainScene;
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
