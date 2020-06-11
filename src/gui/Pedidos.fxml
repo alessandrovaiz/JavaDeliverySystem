@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox prefHeight="404.0" prefWidth="499.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<VBox prefHeight="404.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidosController">
    <children>
       <Label text="Meus Pedidos">
          <VBox.margin>
@@ -23,15 +22,15 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" text="Registrar Pedido" />
+          <Button fx:id="btRegPedido" mnemonicParsing="false" onAction="#onBtRegPedidoAction" text="Registrar Pedido" />
         </items>
       </ToolBar>
-      <TableView prefHeight="143.0" prefWidth="376.0">
+      <TableView fx:id="tableViewProduto" prefHeight="143.0" prefWidth="376.0">
         <columns>
-          <TableColumn prefWidth="45.0" text="Nº" />
-          <TableColumn minWidth="0.0" prefWidth="201.0" text="Cliente" />
-            <TableColumn prefWidth="177.0" text="Endereço" />
-            <TableColumn prefWidth="49.0" text="Status" />
+          <TableColumn fx:id="tableColumnId" prefWidth="45.0" text="Id" />
+          <TableColumn fx:id="tableColumnCliente" minWidth="0.0" prefWidth="201.0" text="Cliente" />
+            <TableColumn fx:id="tableColumnEndereco" prefWidth="177.0" text="Endereço" />
+            <TableColumn fx:id="tableColumnStatus" prefWidth="49.0" text="Status" />
         </columns>
       </TableView>
    </children>
