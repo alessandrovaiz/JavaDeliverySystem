@@ -49,7 +49,7 @@ public class PedidosController implements Initializable {
 
 	private ObservableList<Pedido> obsList;
 
-	public void setPedidoServico(PedidosServico servico) {
+	public void setPedidosServico(PedidosServico servico) {
 		this.servico = servico;
 	}
 

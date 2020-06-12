@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alertas;
@@ -73,7 +74,10 @@ public class TelaPrincipalController implements Initializable {
 	
 	@FXML
 	public void onMenuIPedidosAction() {
-		carregaView2("/gui/Pedidos.fxml");
+		carregaView("/gui/Pedidos.fxml", (PedidosController controller) -> {
+			controller.setPedidosServico(new PedidosServico());
+			controller.updateTableView();
+		});
 	}
 	
 	@FXML
@@ -99,10 +103,10 @@ public class TelaPrincipalController implements Initializable {
 	}
 	
 	
-	private void carregaView(String absoluteName) {
+	private <T> void carregaView(String nomeAbsoluto, Consumer<T> acaoDeInicio) { //funcao generica
 		try {
 		
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(nomeAbsoluto));
 			VBox newVBox = loader.load();
 			
 			Scene mainScene = Main.getMainScene();
@@ -114,35 +118,15 @@ public class TelaPrincipalController implements Initializable {
 			mainNavBar.getChildren().add(mainMenu);
 			mainNavBar.getChildren().addAll(newVBox.getChildren());
 			
+			T controller = loader.getController();
+			acaoDeInicio.accept(controller); // executa a funcao na tela de acao
 			
 		}catch(IOException e) {
 			Alertas.showAlert("IO Exception", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
 		}
 	}
 	
-	private void carregaView2(String absoluteName) {
-		try {
-		
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVBox = loader.load();
-			
-			Scene mainScene = Main.getMainScene();
-			VBox mainNavBar = Main.getNavBar();
-		
-			
-			Node mainMenu = mainNavBar.getChildren().get(0);
-			mainNavBar.getChildren().clear();
-			mainNavBar.getChildren().add(mainMenu);
-			mainNavBar.getChildren().addAll(newVBox.getChildren());
-			
-			PedidosController controller = loader.getController();
-			controller.setPedidoServico(new PedidosServico());
-			controller.updateTableView();
-			
-		}catch(IOException e) {
-			Alertas.showAlert("IO Exception", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
-		}
-	}
+	
 	
 	
 	
