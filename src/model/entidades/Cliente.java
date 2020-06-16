@@ -1,11 +1,14 @@
 package model.entidades;
 
+import model.entidades.enums.RankCliente;
+
 public class Cliente {
 	
 	private String nome;
 	private Integer id;
 	private String endereco;
-	private Enum rank;
+	private int rank;
+	private RankCliente rank_cliente;
 	
 	
 	public Cliente() {
@@ -36,11 +39,13 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 	
-	public Enum getRank() {
+	public int getRank() {
 		return rank;
 	}
-	public void setRank(Enum rank) {
-		this.rank = rank;
+	public void setRank(int i) {
+		this.rank = i;
+		
+		
 	}
 
 	@Override

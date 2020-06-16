@@ -1,12 +1,17 @@
 package model.entidades;
 
+import model.entidades.enums.StatusPedido;
+
 public class Pedido {
 	private Integer id;
 	private Integer qtd;
+	private Double total;
 	private String enderecoEntrega;
 	private Cliente cliente;
 	private Produto produtos;
-	private Enum status;
+	private Integer status;
+	private StatusPedido statusPedido;
+	private Entregador entregador;
 	
 	
 	public Pedido() {
@@ -14,13 +19,15 @@ public class Pedido {
 	}
 	
 	
-	public Pedido(Integer id, Integer qtd, String enderecoEntrega, Cliente cliente, Produto produtos, Enum status) {
+	public Pedido(Integer id, Integer qtd, String enderecoEntrega, Cliente cliente, Produto produtos, int status, Double total, Entregador entregador) {
 		this.id = id;
 		this.qtd = qtd;
 		this.enderecoEntrega = enderecoEntrega;
 		this.cliente = cliente;
 		this.produtos = produtos;
 		this.status = status;
+		this.total = total;
+		this.entregador = entregador;
 	}
 
 
@@ -54,12 +61,53 @@ public class Pedido {
 	public void setProdutos(Produto produtos) {
 		this.produtos = produtos;
 	}
-	public Enum getStatus() {
+
+
+	public Double getTotal() {
+		return total;
+	}
+
+
+	public void setTotal(Double total) {
+		this.total = total*getQtd();
+	}
+
+
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(Enum status) {
-		this.status = status;
+
+
+	public void setStatus(Integer i) {
+		this.status = i;
+		switch(i) {
+		case 1: { statusPedido = statusPedido.AGUARDANDO_ACEITACAO; break; } 
+		case 2: { statusPedido = statusPedido.EM_PREPARO; break; } 
+		case 3: { statusPedido = statusPedido.A_CAMINHO; break; } 
+		case 4: { statusPedido = statusPedido.ENTREGUE; break; } 
+		}
 	}
+
+
+	public Entregador getEntregador() {
+		return entregador;
+	}
+
+
+	public void setEntregador(Entregador entregador) {
+		this.entregador = entregador;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Pedido [id=" + id + ", qtd=" + qtd + ", total=" + total + ", enderecoEntrega=" + enderecoEntrega
+				+ ", cliente=" + cliente + ", produtos=" + produtos + ", status=" + status + ", statusPedido="
+				+ statusPedido + ", entregador=" + entregador + "]";
+	}
+
+
+	
 	
 	
 	
