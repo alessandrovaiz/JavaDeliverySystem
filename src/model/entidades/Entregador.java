@@ -8,7 +8,10 @@ public class Entregador {
 	public Entregador() {
 		
 	}
-
+	
+	public Entregador(String nome) {
+		this.nome=nome;
+	}
 	
 	public Entregador(Integer id, String nome, Double valorPorEntrega) {
 		this.id = id;

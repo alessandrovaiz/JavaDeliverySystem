@@ -15,6 +15,11 @@ public class Cliente {
 		
 	}
 	
+	public Cliente(String nome) {
+		this.nome = nome;
+	}
+	
+	
 	public Cliente(Integer id, String nome,String endereco) {
 		this.id = id;
 		this.nome = nome;

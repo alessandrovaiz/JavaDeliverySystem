@@ -22,7 +22,7 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="btRegPedido" mnemonicParsing="false" onAction="#onBtRegPedidoAction" text="Registrar Pedido" />
+          <Button fx:id="btMeusPedidos" mnemonicParsing="false" onAction="#onBtMeusPedidosAction" text="Registrar Pedido" />
         </items>
       </ToolBar>
       <TableView fx:id="tableViewPedido" prefHeight="143.0" prefWidth="376.0">

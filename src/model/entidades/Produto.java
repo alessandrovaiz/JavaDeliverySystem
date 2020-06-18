@@ -9,7 +9,9 @@ public class Produto {
 		
 	}
 	
-	
+	public Produto (String nome) {
+		this.nome = nome;
+	}
 	public Produto(Integer id, String nome, Double valor, Integer qtd) {
 		this.id = id;
 		this.nome = nome;
