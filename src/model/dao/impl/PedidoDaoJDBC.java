@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import model.dao.PedidoDao;
 import model.entidades.Cliente;
 import model.entidades.Entregador;
@@ -25,19 +27,92 @@ public class PedidoDaoJDBC implements PedidoDao{
 	
 	@Override
 	public void insert(Pedido obj) {
-		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+				"INSERT INTO pedido " +
+				"(qtd,`status`,valor,cliente_id,entregador_id,produto_id) " +
+				"VALUES " +
+				"(?,?,?,?,?,?)", 
+				Statement.RETURN_GENERATED_KEYS);
+
+			st.setInt(1, obj.getQtd());
+			st.setInt(2, obj.getStatus());
+			st.setDouble(3, obj.getTotal());
+			st.setInt(4, obj.getCliente().getId());
+			st.setInt(5, obj.getEntregador().getId());
+			st.setInt(6,obj.getProdutos().getId());
+			
+
+			int rowsAffected = st.executeUpdate();
+			
+			if (rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					obj.setId(id);
+				}
+			}
+			else {
+				throw new DbException("Erro inesperado, sem linhas afetadas!");
+			}
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} 
+		finally {
+			DB.closeStatement(st);
+		}
 		
 	}
 
 	@Override
 	public void update(Pedido obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+				"UPDATE pedido " +
+				"SET qtd = ?,`status`=?,valor=?,cliente_id=?,entregador_id=?,produto_id=? " +
+				"WHERE Id = ?");
+
+			st.setInt(1, obj.getQtd());
+			st.setInt(2, obj.getStatus());
+			st.setDouble(3, obj.getTotal());
+			st.setInt(4, obj.getCliente().getId());
+			st.setInt(5, obj.getEntregador().getId());
+			st.setInt(6,obj.getProdutos().getId());
+			
+			st.setInt(7, obj.getId());
+
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} 
+		finally {
+			DB.closeStatement(st);
+		}
+	}	
 		
-		
-	}
+	
 
 	@Override
 	public void deleteById(Integer id) {
-		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+				"DELETE FROM pedido WHERE Id = ?");
+
+			st.setInt(1, id);
+
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbIntegrityException(e.getMessage());
+		} 
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override

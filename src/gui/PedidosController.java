@@ -23,8 +23,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.entidades.Cliente;
+import model.entidades.Entregador;
 import model.entidades.Pedido;
+import model.entidades.Produto;
+import model.servicos.ClientesServico;
+import model.servicos.EntregadoresServico;
 import model.servicos.PedidosServico;
+import model.servicos.ProdutosServico;
 
 public class PedidosController implements Initializable {
 
@@ -47,7 +53,12 @@ public class PedidosController implements Initializable {
 	@FXML
 	public void onBtMeusPedidosAction(ActionEvent evento) {
 		Stage parentStage = Utilitarios.palcoAtual(evento);
-		criarFormularioDialogo("/gui/PedidosFormulario.fxml", parentStage);
+		Pedido pedido = new Pedido();
+		Cliente cliente = new Cliente(); 
+		Produto produto = new Produto();
+		Entregador entregador = new Entregador();
+		criarFormularioDialogo(pedido,cliente,produto,entregador, "/gui/PedidosFormulario.fxml", parentStage);
+	
 	}
 
 	private ObservableList<Pedido> obsList;
@@ -81,11 +92,24 @@ public class PedidosController implements Initializable {
 		tableViewPedido.setItems(obsList);
 	}
 
-	private void criarFormularioDialogo(String nomeAbsoluto, Stage parentStage) {
+	private void criarFormularioDialogo(Pedido pedido,Cliente cliente,Produto produto,Entregador entregador,String nomeAbsoluto, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(nomeAbsoluto));
 			Pane painel = loader.load();
-
+			
+			PedidosFormController controller = loader.getController();
+			controller.setEntidadePedido(pedido);
+			controller.setEntidadeCliente(cliente);
+			controller.setEntidadeEntregador(entregador);
+			controller.setEntidadeProduto(produto);
+			
+			controller.setPedidosServico(new PedidosServico());
+			controller.setProdutosServico(new ProdutosServico());
+			controller.setClientesServico(new ClientesServico());
+			controller.setEntregadoresServico(new EntregadoresServico());
+			
+			
+			
 			Stage stageDialogo = new Stage();
 			stageDialogo.setTitle("Dados do Pedido");
 			stageDialogo.setScene(new Scene(painel));

@@ -13,5 +13,18 @@ public class PedidosServico {
 		
 		return dao.findAll();
 	}
+	
+	public void salvaOuAtualiza(Pedido obj) {
+		if (obj.getId()==null) {
+			dao.insert(obj);
+		}
+		else {
+			dao.update(obj);
+		}
+	}
+
+	public void remove(Pedido obj) {
+		dao.deleteById(obj.getId());
+	}
 
 }

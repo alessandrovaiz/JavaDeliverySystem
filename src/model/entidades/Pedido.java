@@ -64,12 +64,12 @@ public class Pedido {
 
 
 	public Double getTotal() {
-		return total;
+		return this.total;
 	}
 
 
 	public void setTotal(Double total) {
-		this.total = total*getQtd();
+		this.total = total;
 	}
 
 
@@ -81,10 +81,10 @@ public class Pedido {
 	public void setStatus(Integer i) {
 		this.status = i;
 		switch(i) {
-		case 1: { statusPedido = statusPedido.AGUARDANDO_ACEITACAO; break; } 
-		case 2: { statusPedido = statusPedido.EM_PREPARO; break; } 
-		case 3: { statusPedido = statusPedido.A_CAMINHO; break; } 
-		case 4: { statusPedido = statusPedido.ENTREGUE; break; } 
+		case 1: { statusPedido = StatusPedido.AGUARDANDO_ACEITACAO; break; } 
+		case 2: { statusPedido = StatusPedido.EM_PREPARO; break; } 
+		case 3: { statusPedido = StatusPedido.A_CAMINHO; break; } 
+		case 4: { statusPedido = StatusPedido.ENTREGUE; break; } 
 		}
 	}
 

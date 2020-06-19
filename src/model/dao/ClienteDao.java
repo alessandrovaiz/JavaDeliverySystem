@@ -10,6 +10,7 @@ public interface ClienteDao {
 	void update(Cliente obj);
 	void deleteById(Integer id);
 	Cliente findById(Integer id);
+	Cliente findByName(String nome);
 	List<Cliente> findAll();
 	
 }
