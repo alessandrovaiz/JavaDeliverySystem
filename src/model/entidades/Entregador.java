@@ -14,9 +14,7 @@ public class Entregador {
 		
 	}
 	
-	public Entregador(String nome) {
-		this.nome=nome;
-	}
+	
 	
 	public Entregador(Integer id, String nome, Double valorPorEntrega) {
 		this.id = id;
@@ -69,6 +67,13 @@ public class Entregador {
 		
 		}
 	}
+
+	@Override
+	public String toString() {
+		return nome;
+	}
+	
+	
 	
 	
 }

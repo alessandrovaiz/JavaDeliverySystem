@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="404.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidosController">
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidosController">
    <children>
       <Label text="Meus Pedidos">
          <VBox.margin>
@@ -30,7 +30,10 @@
           <TableColumn fx:id="tableColumnId" prefWidth="45.0" text="Id" />
           <TableColumn fx:id="tableColumnCliente" minWidth="0.0" prefWidth="201.0" text="Cliente" />
             <TableColumn fx:id="tableColumnEndereco" prefWidth="177.0" text="Endereço" />
-            <TableColumn fx:id="tableColumnStatus" prefWidth="49.0" text="Status" />
+            <TableColumn fx:id="tableColumnStatus" prefWidth="108.0" text="Status" />
+            <TableColumn fx:id="tableColumnEntregador" prefWidth="108.0" text="Entregador" />
+            <TableColumn fx:id="tableColumnProduto" prefWidth="86.0" text="Produto" />
+            <TableColumn fx:id="tableColumnTotal" prefWidth="73.0" text="Total" />
         </columns>
       </TableView>
    </children>

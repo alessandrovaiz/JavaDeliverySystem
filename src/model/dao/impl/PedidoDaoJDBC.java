@@ -229,6 +229,7 @@ public class PedidoDaoJDBC implements PedidoDao{
 				obj.setCliente(cliente);
 				obj.setEnderecoEntrega(rs.getString("enderecoCliente"));
 				obj.setProdutos(prod);
+				obj.setEntregador(entregador);
 				obj.setQtd(rs.getInt("qtd"));
 				obj.setStatus(rs.getInt("status"));
 				obj.setTotal(rs.getDouble("valor"));

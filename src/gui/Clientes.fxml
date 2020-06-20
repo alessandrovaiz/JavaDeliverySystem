@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClientesController">
+   <children>
+      <Label text="Meus Clientes">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button fx:id="btRegCliente" mnemonicParsing="false" onAction="#onBtRegClienteAction" text="Registrar Cliente" />
+        </items>
+      </ToolBar>
+      <TableView fx:id="tableViewCliente" prefHeight="143.0" prefWidth="376.0">
+        <columns>
+          <TableColumn fx:id="tableColumnId" prefWidth="45.0" text="Id" />
+          <TableColumn fx:id="tableColumnNome" minWidth="0.0" prefWidth="231.0" text="Nome" />
+            <TableColumn fx:id="tableColumnEndereco" prefWidth="239.0" text="Endereço" />
+            <TableColumn fx:id="tableColumnRank" prefWidth="128.0" text="Rank" />
+            <TableColumn fx:id="tableColumnTotal" prefWidth="131.0" text="Total de Compras" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

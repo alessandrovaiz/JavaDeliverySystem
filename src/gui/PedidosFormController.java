@@ -69,6 +69,7 @@ public class PedidosFormController implements Initializable {
 	@FXML
 	private void onBtAdicionarAcao(ActionEvent evento) {
 
+
 		if (entidadeCliente == null) {
 			throw new IllegalStateException("Cliente não pode ser nulo!");
 		}
@@ -81,35 +82,33 @@ public class PedidosFormController implements Initializable {
 		if (entidadeProduto == null) {
 			throw new IllegalStateException("Produto não pode ser nulo!");
 		}
-		if (textFieldEndereco.getText() == "") {
-			throw new IllegalStateException("Endereço não pode ser nulo!");
-		}
-		if (textFieldQuantidade.getText() == "") {
-			throw new IllegalStateException("Quantidade não pode ser nulo!");
-		}
 		
-		
-		if(textFieldCliente.getText().length()<1) {
-			Alertas.showAlert("Erro", "O campo cliente não pode ser vazio! ", null, AlertType.CONFIRMATION);
+		if(textFieldCliente.getText()==null) {
+			Alertas.showAlert("Erro", "O campo cliente não pode ser vazio! ", null, AlertType.ERROR);
+			
 			return;
 		}
 		
-		if(textFieldEntregador.getText().length()<1) {
-			Alertas.showAlert("Erro", "O campo entregador não pode ser vazio! ", null, AlertType.CONFIRMATION);
+		if(textFieldEntregador.getText()==null) {
+			Alertas.showAlert("Erro", "O campo entregador não pode ser vazio! ", null, AlertType.ERROR);
 			return;
 		}
-		if(textFieldProduto.getText().length()<1) {
-			Alertas.showAlert("Erro", "O campo produto não pode ser vazio! ", null, AlertType.CONFIRMATION);
+		
+		if (textFieldEndereco.getText() == null) {
+			Alertas.showAlert("Erro", "O campo endereço não pode ser vazio! ", null, AlertType.ERROR);
+			return;
+			
+		}
+		
+		if(textFieldProduto.getText()==null) {
+			Alertas.showAlert("Erro", "O campo produto não pode ser vazio! ", null, AlertType.ERROR);
 			return;
 		}
-		if(textFieldEndereco.getText().length()<1) {
-			Alertas.showAlert("Erro", "O campo endereco não pode ser vazio! ", null, AlertType.CONFIRMATION);
-			return;
-		} 
 		if(textFieldQuantidade.getText().length()<1) {
-			Alertas.showAlert("Erro", "O campo quantidade não pode ser vazio! ", null, AlertType.CONFIRMATION);
+			Alertas.showAlert("Erro", "O campo quantidade não pode ser vazio! ", null, AlertType.ERROR);
 			return;
 		} 
+		
 		
 		entidadePedido = getPedidoDados();
 		servicoPedidos.salvaOuAtualiza(entidadePedido);
@@ -186,7 +185,7 @@ public class PedidosFormController implements Initializable {
 				produto.setNome(textFieldProduto.getText());
 				valor = JOptionPane.showInputDialog("Insira o valor do produto!");
 				produto.setValor(Double.parseDouble(valor));
-				produto.setQtd(Utilitarios.tentaAttParaInteiro(textFieldQuantidade.getText()));
+				produto.setQtd(Integer.parseInt(textFieldQuantidade.getText()));
 	
 				servicoProdutos.insert(produto);
 				this.entidadeProduto = produto;
@@ -227,7 +226,7 @@ public class PedidosFormController implements Initializable {
 			obj.setCliente(servicoClientes.findByName(cliente.getNome()));
 			obj.setEntregador(servicoEntregadores.findByName(entregador.getNome()));
 			obj.setProdutos(servicoProdutos.findByName(produto.getNome()));
-			obj.setTotal(produto.getValor() * Utilitarios.tentaAttParaInteiro(textFieldQuantidade.getText()));
+			obj.setTotal(produto.getValor() * Utilitarios.tentaAttParaInteiro(textFieldQuantidade.getText()) + entregador.getValorPorEntrega());
 			obj.setEnderecoEntrega(textFieldEndereco.getText());
 			obj.setQtd(Utilitarios.tentaAttParaInteiro(textFieldQuantidade.getText()));
 			

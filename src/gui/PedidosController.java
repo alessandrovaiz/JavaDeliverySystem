@@ -47,6 +47,12 @@ public class PedidosController implements Initializable, MudaDadosListener {
 	private TableColumn<Pedido, String> tableColumnEndereco;
 	@FXML
 	private TableColumn<Pedido, Integer> tableColumnStatus;
+	@FXML
+	private TableColumn<Pedido, String> tableColumnEntregador;
+	@FXML
+	private TableColumn<Pedido, String> tableColumnProduto;
+	@FXML
+	private TableColumn<Pedido, Double> tableColumnTotal;
 
 	@FXML
 	private Button btMeusPedidos;
@@ -78,6 +84,10 @@ public class PedidosController implements Initializable, MudaDadosListener {
 		tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 		tableColumnEndereco.setCellValueFactory(new PropertyValueFactory<>("enderecoEntrega"));
 		tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+		tableColumnEntregador.setCellValueFactory(new PropertyValueFactory<>("entregador"));
+		tableColumnProduto.setCellValueFactory(new PropertyValueFactory<>("produtos"));
+		tableColumnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+		
 
 		Stage stage = (Stage) Main.getMainScene().getWindow(); // downcasting
 		tableViewPedido.prefHeightProperty().bind(stage.heightProperty()); // deixa a tabela do tamanho da janela

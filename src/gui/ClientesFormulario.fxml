@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="404.0" prefWidth="188.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClientesFormController">
+   <children>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="411.0" prefWidth="188.0">
+         <children>
+            <Label layoutX="17.0" layoutY="88.0" text="Nome" />
+            <Label layoutX="20.0" layoutY="159.0" text="Endereço" />
+            <Button fx:id="btAdicionar" layoutX="30.0" layoutY="314.0" mnemonicParsing="false" onAction="#onBtAdicionarAcao" prefHeight="25.0" prefWidth="138.0" text="Adicionar" />
+            <TextField fx:id="textFieldNome" layoutX="20.0" layoutY="113.0" />
+            <TextField fx:id="textFieldEndereco" layoutX="20.0" layoutY="181.0" />
+            <Label fx:id="lblErro" layoutX="91.0" layoutY="357.0" prefHeight="17.0" prefWidth="16.0" />
+            <Button fx:id="btCancelar" layoutX="30.0" layoutY="345.0" mnemonicParsing="false" onAction="#onBtCancelarAcao" prefHeight="25.0" prefWidth="138.0" text="Cancelar" />
+            <TextField fx:id="textFieldId" layoutX="20.0" layoutY="48.0" />
+            <Label layoutX="18.0" layoutY="24.0" text="Id" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

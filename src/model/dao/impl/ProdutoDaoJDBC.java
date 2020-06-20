@@ -12,7 +12,6 @@ import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
 import model.dao.ProdutoDao;
-import model.entidades.Entregador;
 import model.entidades.Produto;
 
 public class ProdutoDaoJDBC implements ProdutoDao{

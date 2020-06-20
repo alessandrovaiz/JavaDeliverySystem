@@ -44,6 +44,11 @@ public class Produto {
 	public void setQtd(Integer qtd) {
 		this.qtd = qtd;
 	}
+
+	@Override
+	public String toString() {
+		return nome;
+	}
 	
 	
 	

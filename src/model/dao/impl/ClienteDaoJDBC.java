@@ -68,7 +68,7 @@ public class ClienteDaoJDBC implements ClienteDao{
 			st = conn.prepareStatement(
 				"UPDATE cliente " +
 				"SET nome = ?,endereco=?,`rank`=?" +
-				"WHERE Id = ?");
+				" WHERE id = ?");
 			
 			st.setString(1, obj.getNome());
 			st.setString(2, obj.getEndereco());
@@ -159,10 +159,10 @@ public class ClienteDaoJDBC implements ClienteDao{
 				
 				Cliente obj = new Cliente();
 				
-				obj.setEndereco(rs.getString("enderecoCliente"));
-				obj.setNome(rs.getString("nomeCliente"));
-				obj.setId(rs.getInt("cliente_id"));
-				obj.setRank(rs.getInt("rankCliente"));
+				obj.setEndereco(rs.getString("endereco"));
+				obj.setNome(rs.getString("nome"));
+				obj.setId(rs.getInt("id"));
+				obj.setRank(rs.getInt("rank"));
 				
 		
 				list.add(obj);
