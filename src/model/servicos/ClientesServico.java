@@ -33,6 +33,12 @@ public class ClientesServico {
 		
 	}
 	
+	public Cliente findById(Integer id) {
+		Cliente obj = dao.findById(id);
+		return obj;
+		
+	}
+	
 	public void insert(Cliente obj) {
 		dao.insert(obj);
 	}

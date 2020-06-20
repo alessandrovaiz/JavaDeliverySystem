@@ -185,13 +185,13 @@ public class PedidoDaoJDBC implements PedidoDao{
 		try {
 			st = conn.prepareStatement(
 							"SELECT pedido.*,cliente.endereco as enderecoCliente, cliente.nome as nomeCliente," + 
-							"cliente.rank as rankCliente, " + 
-							"produto.nome as nomeProduto, produto.valor as valorProduto,produto.quantidade as qtdProduto, " + 
-							"entregador.nome as nomeEntregador, entregador.custo_p_entrega as custoEntregador " + 
-							"FROM pedido " + 
-							"INNER JOIN cliente ON pedido.cliente_id = cliente_id " + 
-							"INNER JOIN produto ON pedido.produto_id = produto_id " + 
-							"INNER JOIN entregador ON pedido.entregador_id " );
+							"							cliente.rank as rankCliente," + 
+							"							produto.nome as nomeProduto, produto.valor as valorProduto,produto.quantidade as qtdProduto," + 
+							"							entregador.nome as nomeEntregador, entregador.custo_p_entrega as custoEntregador \r\n" + 
+							"							FROM pedido " + 
+							"							INNER JOIN cliente ON pedido.cliente_id = cliente.id " + 
+							"							INNER JOIN produto ON pedido.produto_id = produto.id " + 
+							"							INNER JOIN entregador ON pedido.entregador_id = entregador.id" );
 			
 			rs = st.executeQuery();
 

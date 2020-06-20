@@ -33,6 +33,11 @@ public class EntregadoresServico {
 		
 	}
 	
+	public Entregador findById(Integer id) {
+		Entregador obj = dao.findById(id);
+		return obj;
+		
+	}
 	public void insert(Entregador obj) {
 		dao.insert(obj);
 	}

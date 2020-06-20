@@ -4,7 +4,6 @@ import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.ProdutoDao;
-import model.entidades.Entregador;
 import model.entidades.Produto;
 
 public class ProdutosServico {
@@ -28,6 +27,10 @@ public class ProdutosServico {
 		dao.deleteById(obj.getId());
 	}
 
+	public Produto findById (Integer id) {
+		Produto obj = dao.findById(id);
+		return obj;
+	}
 	
 	public Produto findByName(String nome) {
 		Produto obj = dao.findByName(nome);

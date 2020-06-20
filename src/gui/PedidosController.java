@@ -88,6 +88,9 @@ public class PedidosController implements Initializable {
 																	// serviço
 		}
 		List<Pedido> list = servico.findAll();
+		for(Pedido p: list) {
+			System.out.println(p);
+		}
 		obsList = FXCollections.observableArrayList(list);
 		tableViewPedido.setItems(obsList);
 	}
