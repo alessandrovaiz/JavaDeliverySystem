@@ -2,11 +2,13 @@ package gui;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
 import db.DbException;
+import gui.listeners.MudaDadosListener;
 import gui.util.Alertas;
 import gui.util.Restricoes;
 import gui.util.Utilitarios;
@@ -38,6 +40,9 @@ public class PedidosFormController implements Initializable {
 	private EntregadoresServico servicoEntregadores;
 	private ProdutosServico servicoProdutos;
 
+	
+	private List<MudaDadosListener> mudaDadosListeners = new ArrayList<>();
+	
 	@FXML
 	private Button btAdicionar;
 	@FXML
@@ -97,7 +102,10 @@ public class PedidosFormController implements Initializable {
 			Alertas.showAlert("Erro", "O campo produto não pode ser vazio! ", null, AlertType.CONFIRMATION);
 			return;
 		}
-		
+		if(textFieldEndereco.getText().length()<1) {
+			Alertas.showAlert("Erro", "O campo endereco não pode ser vazio! ", null, AlertType.CONFIRMATION);
+			return;
+		} 
 		if(textFieldQuantidade.getText().length()<1) {
 			Alertas.showAlert("Erro", "O campo quantidade não pode ser vazio! ", null, AlertType.CONFIRMATION);
 			return;
@@ -105,8 +113,16 @@ public class PedidosFormController implements Initializable {
 		
 		entidadePedido = getPedidoDados();
 		servicoPedidos.salvaOuAtualiza(entidadePedido);
+		notificaListeners();
 		Utilitarios.palcoAtual(evento).close();
 
+	}
+
+	private void notificaListeners() {
+		for(MudaDadosListener listener: mudaDadosListeners) {
+			listener.atualizaDados();
+		}
+		
 	}
 
 	private Entregador getEntregadorDados() {
@@ -257,6 +273,11 @@ public class PedidosFormController implements Initializable {
 
 		this.inicializarTabelaPedidos();
 
+	}
+	
+	
+	public void inscreveListener(MudaDadosListener listener) {
+		mudaDadosListeners.add(listener);
 	}
 
 	public void setEntidadePedido(Pedido entidade) {

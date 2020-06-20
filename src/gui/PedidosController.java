@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.MudaDadosListener;
 import gui.util.Alertas;
 import gui.util.Utilitarios;
 import javafx.collections.FXCollections;
@@ -32,7 +33,7 @@ import model.servicos.EntregadoresServico;
 import model.servicos.PedidosServico;
 import model.servicos.ProdutosServico;
 
-public class PedidosController implements Initializable {
+public class PedidosController implements Initializable, MudaDadosListener {
 
 	private PedidosServico servico;
 
@@ -111,6 +112,8 @@ public class PedidosController implements Initializable {
 			controller.setClientesServico(new ClientesServico());
 			controller.setEntregadoresServico(new EntregadoresServico());
 			
+			controller.inscreveListener(this);
+			controller.atualizaDadosForm();
 			
 			
 			Stage stageDialogo = new Stage();
@@ -124,6 +127,12 @@ public class PedidosController implements Initializable {
 		} catch (IOException e) {
 			Alertas.showAlert("IOException", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void atualizaDados() {
+		updateTableView();
+		
 	}
 
 }
