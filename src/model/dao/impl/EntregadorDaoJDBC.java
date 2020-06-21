@@ -66,9 +66,9 @@ public class EntregadorDaoJDBC implements EntregadorDao{
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"UPDATE cliente " +
-				"SET nome = ?,custo_p_entrega=?,`status`=?" +
-				"WHERE Id = ?");
+				"UPDATE entregador " +
+				"SET nome = ?, custo_p_entrega=?,`status`=?" +
+				" WHERE id = ?");
 			
 			
 			st.setString(1, obj.getNome());
@@ -95,7 +95,7 @@ public class EntregadorDaoJDBC implements EntregadorDao{
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM entregador WHERE Id = ?");
+				"DELETE FROM entregador WHERE id = ?");
 
 			st.setInt(1, id);
 
@@ -123,9 +123,10 @@ public class EntregadorDaoJDBC implements EntregadorDao{
 			
 				Entregador obj = new Entregador();
 				
-				obj.setId(rs.getInt("entregador_id"));
-				obj.setNome(rs.getString("nomeEntregador"));
-				obj.setValorPorEntrega(rs.getDouble("custoEntregador"));
+				obj.setId(rs.getInt("id"));
+				obj.setNome(rs.getString("nome"));
+				obj.setValorPorEntrega(rs.getDouble("custo_p_entrega"));
+				obj.setStatus(rs.getInt("`status`"));
 				
 				return obj;
 				
@@ -158,9 +159,9 @@ public class EntregadorDaoJDBC implements EntregadorDao{
 				
 				Entregador obj = new Entregador();
 				
-				obj.setId(rs.getInt("entregador_id"));
-				obj.setNome(rs.getString("nomeEntregador"));
-				obj.setValorPorEntrega(rs.getDouble("custoEntregador"));
+				obj.setId(rs.getInt("id"));
+				obj.setNome(rs.getString("nome"));
+				obj.setValorPorEntrega(rs.getDouble("custo_p_entrega"));
 				obj.setStatus(rs.getInt("status"));
 				
 				

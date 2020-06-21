@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entidades.Cliente;
+import model.entidades.Produto;
 import model.servicos.ClientesServico;
 
 public class ClientesFormController implements Initializable {
@@ -83,27 +84,21 @@ public class ClientesFormController implements Initializable {
 
 	
 	private Cliente getClienteDados() {
-		Cliente cliente = new Cliente();
 		
+		Cliente obj = new Cliente();
 		try {
-			if (servicoClientes.findByName(textFieldNome.getText()) != null) {
-				cliente = servicoClientes.findByName(textFieldNome.getText());
-				return cliente;
-			} else  {
-				cliente.setId(Utilitarios.tentaAttParaInteiro(textFieldId.getText()));
-				cliente.setNome(textFieldNome.getText());
-				cliente.setRank(1);
-				
-				cliente.setEndereco(textFieldEndereco.getText());
-
-				
-				
-				return cliente;
-			} 
+			
+			obj.setId(Utilitarios.tentaAttParaInteiro(textFieldId.getText()));
+			obj.setNome(textFieldNome.getText());
+			obj.setRank(1);
+			obj.setEndereco(textFieldEndereco.getText());
+			return obj;
+			
 		} catch (DbException e) {
-			Alertas.showAlert("Erro ao inserir cliente", null, e.getMessage(), AlertType.ERROR);
+			Alertas.showAlert("Erro ao inserir pedido", null, e.getMessage(), AlertType.ERROR);
 		}
 		return null;
+		
 	}
 
 	

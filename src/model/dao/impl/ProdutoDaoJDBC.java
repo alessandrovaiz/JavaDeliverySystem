@@ -66,8 +66,8 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 		try {
 			st = conn.prepareStatement(
 				"UPDATE produto " +
-				"SET nome = ?,valor =?,quantidade=? " +
-				"WHERE Id = ?");
+				" SET nome = ?,valor =?,quantidade=? " +
+				" WHERE id = ?");
 
 			st.setString(1, obj.getNome());
 			st.setDouble(2, obj.getValor());
@@ -119,10 +119,10 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 			rs = st.executeQuery();
 			if(rs.next()) {
 				Produto prod = new Produto();
-				prod.setId(rs.getInt("produto_id"));
-				prod.setNome(rs.getString("nomeProduto"));
-				prod.setQtd(rs.getInt("qtdProduto"));
-				prod.setValor(rs.getDouble("valorProduto"));
+				prod.setId(rs.getInt("id"));
+				prod.setNome(rs.getString("nome"));
+				prod.setQtd(rs.getInt("quantidade"));
+				prod.setValor(rs.getDouble("valor"));
 				
 				
 				

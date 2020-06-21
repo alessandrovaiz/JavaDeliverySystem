@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import model.servicos.ClientesServico;
+import model.servicos.EntregadoresServico;
 import model.servicos.PedidosServico;
 import model.servicos.ProdutosServico;
 
@@ -101,7 +102,10 @@ public class TelaPrincipalController implements Initializable {
 	
 	@FXML
 	public void onMenuIEntregadoresAction() {
-		System.out.println("teste");
+		carregaView("/gui/Entregadores.fxml", (EntregadoresController controller) -> {
+			controller.setEntregadoresServico(new EntregadoresServico());
+			controller.updateTableView();
+		});
 	}
 	
 	

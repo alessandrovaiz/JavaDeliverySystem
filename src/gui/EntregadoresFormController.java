@@ -17,17 +17,19 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.entidades.Produto;
-import model.servicos.ProdutosServico;
+import model.entidades.Entregador;
+import model.servicos.EntregadoresServico;
 
-public class ProdutosFormController implements Initializable {
+public class EntregadoresFormController implements Initializable {
+	
+	private Entregador entidadeEntregador;
 
-	private Produto entidadeProduto;
+	private EntregadoresServico servicoEntregadores;
 
-	private ProdutosServico servicoProdutos;
 
+	
 	private List<MudaDadosListener> mudaDadosListeners = new ArrayList<>();
-
+	
 	@FXML
 	private Button btAdicionar;
 	@FXML
@@ -38,109 +40,119 @@ public class ProdutosFormController implements Initializable {
 	@FXML
 	private TextField textFieldNome;
 	@FXML
-	private TextField textFieldValor;
-	@FXML
-	private TextField textFieldQtd;
-
+	private TextField textFieldValorEntrega;
+	
 	@FXML
 	Label lblErro;
 
-	ArrayList<Produto> Produtos;
+	ArrayList<Entregador> Entregadores;
 
 	@FXML
 	private void onBtAdicionarAcao(ActionEvent evento) {
 
-		if (entidadeProduto == null) {
-			throw new IllegalStateException("Produto não pode ser nulo!");
+		if (entidadeEntregador == null) {
+			throw new IllegalStateException("Entregador não pode ser nulo!");
 		}
-
-		if (textFieldNome.getText() == null) {
+		
+		
+		
+		if(textFieldNome.getText()==null) {
 			Alertas.showAlert("Erro", "O campo nome não pode ser vazio! ", null, AlertType.CONFIRMATION);
 			return;
 		}
-
-		if (textFieldValor.getText().length() < 1) {
-			Alertas.showAlert("Erro", "O campo Valor não pode ser vazio! ", null, AlertType.CONFIRMATION);
+		
+		if(textFieldValorEntrega.getText().length()<1) {
+			Alertas.showAlert("Erro", "O campo Valor Por Entrega não pode ser vazio! ", null, AlertType.CONFIRMATION);
 			return;
-		}
-		if (textFieldQtd.getText().length() < 1) {
-			Alertas.showAlert("Erro", "O campo Estoque não pode ser vazio! ", null, AlertType.ERROR);
-			return;
-		}
-
-		entidadeProduto = getProdutoDados();
-		servicoProdutos.salvaOuAtualiza(entidadeProduto);
+		} 
+		
+		
+		entidadeEntregador = getEntregadorDados();
+		servicoEntregadores.salvaOuAtualiza(entidadeEntregador);
 		notificaListeners();
 		Utilitarios.palcoAtual(evento).close();
 
 	}
 
 	private void notificaListeners() {
-		for (MudaDadosListener listener : mudaDadosListeners) {
+		for(MudaDadosListener listener: mudaDadosListeners) {
 			listener.atualizaDados();
 		}
-
+		
 	}
 
-	private Produto getProdutoDados() {
-
-		Produto obj = new Produto();
+	
+	private Entregador getEntregadorDados() {
+		
+		Entregador obj = new Entregador();
 		try {
+			
 			obj.setId(Utilitarios.tentaAttParaInteiro(textFieldId.getText()));
 			obj.setNome(textFieldNome.getText());
-			obj.setQtd(Utilitarios.tentaAttParaInteiro(textFieldQtd.getText()));
-			obj.setValor(Double.parseDouble(textFieldValor.getText()));
-
+			obj.setStatus(1);
+			obj.setValorPorEntrega(Double.parseDouble(textFieldValorEntrega.getText()));
+			
 			return obj;
+			
 		} catch (DbException e) {
 			Alertas.showAlert("Erro ao inserir pedido", null, e.getMessage(), AlertType.ERROR);
 		}
 		return null;
+		
 	}
 
+	
+
+	
 	@FXML
 	private void onBtCancelarAcao(ActionEvent evento) {
 		Utilitarios.palcoAtual(evento).close();
 	}
 
-	private void inicializarTabelaProdutos() {
+	private void inicializarTabelaEntregadores() {
 
 		Restricoes.setTextFieldInteger(textFieldId);
-		Restricoes.setTextFieldDouble(textFieldValor);
-		Restricoes.setTextFieldInteger(textFieldQtd);
 		Restricoes.setTextFieldMaxLength(textFieldNome, 50);
+		Restricoes.setTextFieldDouble(textFieldValorEntrega);
 
 	}
 
 	public void atualizaDadosForm() {
-		if (entidadeProduto == null) {
+		if (entidadeEntregador == null) {
 			throw new IllegalStateException("Entidade está nula");
 		}
 
-		textFieldId.setText(String.valueOf(entidadeProduto.getId()));
-		textFieldNome.setText(entidadeProduto.getNome());
-		textFieldValor.setText(String.valueOf(entidadeProduto.getValor()));
-		textFieldQtd.setText(String.valueOf(entidadeProduto.getQtd()));
+		textFieldId.setText(String.valueOf(entidadeEntregador.getId()));
+		textFieldNome.setText(entidadeEntregador.getNome());
+		textFieldValorEntrega.setText(String.valueOf(entidadeEntregador.getValorPorEntrega()));
+	
 
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		this.inicializarTabelaProdutos();
+		this.inicializarTabelaEntregadores();
 
 	}
-
+	
+	
 	public void inscreveListener(MudaDadosListener listener) {
 		mudaDadosListeners.add(listener);
 	}
 
-	public void setEntidadeProduto(Produto entidade) {
-		this.entidadeProduto = entidade;
+	
+
+	public void setEntidadeEntregador(Entregador entidade) {
+		this.entidadeEntregador = entidade;
 	}
 
-	public void setProdutosServico(ProdutosServico servicoProdutos) {
-		this.servicoProdutos = servicoProdutos;
+	
+
+	public void setEntregadoresServico(EntregadoresServico servicoEntregadores) {
+		this.servicoEntregadores = servicoEntregadores;
 	}
+
+	
 
 }
