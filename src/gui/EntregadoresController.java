@@ -3,11 +3,11 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-
-
 import application.Main;
+import db.DbIntegrityException;
 import gui.listeners.MudaDadosListener;
 import gui.util.Alertas;
 import gui.util.Utilitarios;
@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -78,7 +79,6 @@ public class EntregadoresController implements Initializable, MudaDadosListener 
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		tableColumnCustoEntrega.setCellValueFactory(new PropertyValueFactory<>("valorPorEntrega"));
 		tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-		
 
 		Stage stage = (Stage) Main.getMainScene().getWindow(); // downcasting
 		tableViewEntregador.prefHeightProperty().bind(stage.heightProperty()); // deixa a tabela do tamanho da janela
@@ -96,6 +96,7 @@ public class EntregadoresController implements Initializable, MudaDadosListener 
 		obsList = FXCollections.observableArrayList(list);
 		tableViewEntregador.setItems(obsList);
 		initEditarBotoes();
+		initExcluirBotoes();
 	}
 
 	private void criarFormularioDialogo(Entregador entregador, String nomeAbsoluto, Stage parentStage) {
@@ -142,10 +143,46 @@ public class EntregadoresController implements Initializable, MudaDadosListener 
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(
-						event -> criarFormularioDialogo(obj, "/gui/EntregadoresFormulario.fxml", Utilitarios.palcoAtual(event)));
+				button.setOnAction(event -> criarFormularioDialogo(obj, "/gui/EntregadoresFormulario.fxml",
+						Utilitarios.palcoAtual(event)));
 			}
 		});
+	}
+
+	private void initExcluirBotoes() {
+		tableColumnExcluir.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnExcluir.setCellFactory(param -> new TableCell<Entregador, Entregador>() {
+			private final Button button = new Button("Excluir");
+
+			@Override
+			protected void updateItem(Entregador obj, boolean empty) {
+				super.updateItem(obj, empty);
+
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+
+				setGraphic(button);
+				button.setOnAction(event -> removeEntidade(obj));
+			}
+		});
+	}
+
+	private void removeEntidade(Entregador obj) {
+		Optional<ButtonType> resultado = Alertas.showConfirmation("Confirmação", "Você tem certeza que quer excluir?");
+		if(resultado.get() == ButtonType.OK) {
+			if(servico==null) {
+				throw new IllegalStateException("O Serviço está nulo!");
+			}
+			try{
+				servico.remove(obj);
+				updateTableView();
+			}
+			catch(DbIntegrityException e) {
+				Alertas.showAlert("Erro removendo o objeto", null, e.getMessage(), AlertType.ERROR);
+			}
+		}
 	}
 
 }

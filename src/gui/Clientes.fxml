@@ -33,6 +33,7 @@
             <TableColumn fx:id="tableColumnRank" prefWidth="115.0" text="Rank" />
             <TableColumn fx:id="tableColumnTotal" prefWidth="107.0" text="Total de Compras" />
             <TableColumn fx:id="tableColumnEditar" prefWidth="61.0" />
+            <TableColumn fx:id="tableColumnExcluir" prefWidth="61.0" />
         </columns>
       </TableView>
    </children>

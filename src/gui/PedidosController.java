@@ -3,12 +3,15 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DbIntegrityException;
 import gui.listeners.MudaDadosListener;
 import gui.util.Alertas;
 import gui.util.Utilitarios;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +21,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,7 +41,13 @@ import model.servicos.ProdutosServico;
 public class PedidosController implements Initializable, MudaDadosListener {
 
 	private PedidosServico servico;
-
+	
+	
+	private Cliente cliente;
+	private Produto produto;
+	private Entregador entregador;
+	
+	
 	@FXML
 	private TableView<Pedido> tableViewPedido;
 	@FXML
@@ -55,6 +66,8 @@ public class PedidosController implements Initializable, MudaDadosListener {
 	private TableColumn<Pedido, Double> tableColumnTotal;
 	@FXML
 	private TableColumn<Pedido, Pedido> tableColumnEditar;
+	@FXML
+	private TableColumn<Pedido, Pedido> tableColumnExcluir;
 	
 	
 	@FXML
@@ -107,6 +120,9 @@ public class PedidosController implements Initializable, MudaDadosListener {
 		}
 		obsList = FXCollections.observableArrayList(list);
 		tableViewPedido.setItems(obsList);
+		initEditarBotoes();
+		initExcluirBotoes();
+		
 	}
 
 	private void criarFormularioDialogo(Pedido pedido,Cliente cliente,Produto produto,Entregador entregador,String nomeAbsoluto, Stage parentStage) {
@@ -119,6 +135,8 @@ public class PedidosController implements Initializable, MudaDadosListener {
 			controller.setEntidadeCliente(cliente);
 			controller.setEntidadeEntregador(entregador);
 			controller.setEntidadeProduto(produto);
+			
+			
 			
 			controller.setPedidosServico(new PedidosServico());
 			controller.setProdutosServico(new ProdutosServico());
@@ -143,11 +161,73 @@ public class PedidosController implements Initializable, MudaDadosListener {
 	}
 	
 	
+	
 
 	@Override
 	public void atualizaDados() {
 		updateTableView();
 		
+	}
+	
+	private void initEditarBotoes() {
+		tableColumnEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEditar.setCellFactory(param -> new TableCell<Pedido, Pedido>() {
+			private final Button button = new Button("Editar");
+
+			@Override
+			protected void updateItem(Pedido obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				
+				
+				
+				
+				button.setOnAction(
+						event -> criarFormularioDialogo(obj,obj.getCliente(),obj.getProdutos(),obj.getEntregador(), "/gui/PedidosFormulario.fxml", Utilitarios.palcoAtual(event)));
+			}
+			
+		});
+	}
+	
+	
+	private void initExcluirBotoes() {
+		tableColumnExcluir.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnExcluir.setCellFactory(param -> new TableCell<Pedido, Pedido>() {
+			private final Button button = new Button("Excluir");
+
+			@Override
+			protected void updateItem(Pedido obj, boolean empty) {
+				super.updateItem(obj, empty);
+
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+
+				setGraphic(button);
+				button.setOnAction(event -> removeEntidade(obj));
+			}
+		});
+	}
+
+	private void removeEntidade(Pedido obj) {
+		Optional<ButtonType> resultado = Alertas.showConfirmation("Confirmação", "Você tem certeza que quer excluir?");
+		if(resultado.get() == ButtonType.OK) {
+			if(servico==null) {
+				throw new IllegalStateException("O Serviço está nulo!");
+			}
+			try{
+				servico.remove(obj);
+				updateTableView();
+			}
+			catch(DbIntegrityException e) {
+				Alertas.showAlert("Erro removendo o objeto", null, e.getMessage(), AlertType.ERROR);
+			}
+		}
 	}
 	
 }

@@ -3,11 +3,13 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
 
 import application.Main;
+import db.DbIntegrityException;
 import gui.listeners.MudaDadosListener;
 import gui.util.Alertas;
 import gui.util.Utilitarios;
@@ -21,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,6 +32,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entidades.Cliente;
+import model.entidades.Entregador;
 import model.servicos.ClientesServico;
 
 public class ClientesController implements Initializable, MudaDadosListener {
@@ -49,6 +53,8 @@ public class ClientesController implements Initializable, MudaDadosListener {
 	private TableColumn<Cliente, Double> tableColumnTotal;
 	@FXML
 	private TableColumn<Cliente, Cliente> tableColumnEditar;
+	@FXML
+	private TableColumn<Cliente, Cliente> tableColumnExcluir;
 
 	@FXML
 	private Button btRegCliente;
@@ -96,6 +102,7 @@ public class ClientesController implements Initializable, MudaDadosListener {
 		obsList = FXCollections.observableArrayList(list);
 		tableViewCliente.setItems(obsList);
 		initEditarBotoes();
+		initExcluirBotoes();
 	}
 
 	private void criarFormularioDialogo(Cliente cliente, String nomeAbsoluto, Stage parentStage) {
@@ -147,5 +154,40 @@ public class ClientesController implements Initializable, MudaDadosListener {
 			}
 		});
 	}
+	
+	private void initExcluirBotoes() {
+		tableColumnExcluir.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnExcluir.setCellFactory(param -> new TableCell<Cliente, Cliente>() {
+			private final Button button = new Button("Excluir");
 
+			@Override
+			protected void updateItem(Cliente obj, boolean empty) {
+				super.updateItem(obj, empty);
+
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+
+				setGraphic(button);
+				button.setOnAction(event -> removeEntidade(obj));
+			}
+		});
+	}
+
+	private void removeEntidade(Cliente obj) {
+		Optional<ButtonType> resultado = Alertas.showConfirmation("Confirmação", "Você tem certeza que quer excluir?");
+		if(resultado.get() == ButtonType.OK) {
+			if(servico==null) {
+				throw new IllegalStateException("O Serviço está nulo!");
+			}
+			try{
+				servico.remove(obj);
+				updateTableView();
+			}
+			catch(DbIntegrityException e) {
+				Alertas.showAlert("Erro removendo o objeto", null, e.getMessage(), AlertType.ERROR);
+			}
+		}
+	}
 }

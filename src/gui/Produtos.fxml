@@ -32,6 +32,7 @@
             <TableColumn fx:id="tableColumnValor" prefWidth="177.0" text="Valor" />
             <TableColumn fx:id="tableColumnQtd" prefWidth="115.0" text="Quantidade" />
             <TableColumn fx:id="tableColumnEditar" prefWidth="61.0" />
+            <TableColumn fx:id="tableColumnExcluir" prefWidth="61.0" />
         </columns>
       </TableView>
    </children>
