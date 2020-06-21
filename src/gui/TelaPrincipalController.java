@@ -17,6 +17,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import model.servicos.ClientesServico;
 import model.servicos.PedidosServico;
+import model.servicos.ProdutosServico;
 
 public class TelaPrincipalController implements Initializable {
 
@@ -91,7 +92,10 @@ public class TelaPrincipalController implements Initializable {
 	
 	@FXML
 	public void onMenuIProdutosAction() {
-		System.out.println("teste");
+		carregaView("/gui/Produtos.fxml", (ProdutosController controller) -> {
+			controller.setProdutosServico(new ProdutosServico());
+			controller.updateTableView();
+		});
 	}
 	
 	

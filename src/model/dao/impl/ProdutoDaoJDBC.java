@@ -27,7 +27,7 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"INSERT INTO Produto " +
+				"INSERT INTO produto " +
 				"(nome,valor,quantidade) " +
 				"VALUES " +
 				"(?,?,?)", 
@@ -157,10 +157,10 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 				
 				Produto prod = new Produto();
 				
-				prod.setId(rs.getInt("produto_id"));
-				prod.setNome(rs.getString("nomeProduto"));
-				prod.setQtd(rs.getInt("qtdProduto"));
-				prod.setValor(rs.getDouble("valorProduto"));
+				prod.setId(rs.getInt("id"));
+				prod.setNome(rs.getString("nome"));
+				prod.setQtd(rs.getInt("quantidade"));
+				prod.setValor(rs.getDouble("valor"));
 				
 			
 				list.add(prod);

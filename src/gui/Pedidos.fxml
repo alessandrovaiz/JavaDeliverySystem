@@ -34,6 +34,7 @@
             <TableColumn fx:id="tableColumnEntregador" prefWidth="98.0" text="Entregador" />
             <TableColumn fx:id="tableColumnProduto" text="Produto" />
             <TableColumn fx:id="tableColumnTotal" prefWidth="50.0" text="Total" />
+            <TableColumn fx:id="tableColumnEditar" prefWidth="115.0" />
         </columns>
       </TableView>
    </children>

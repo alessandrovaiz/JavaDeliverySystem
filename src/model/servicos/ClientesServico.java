@@ -42,5 +42,6 @@ public class ClientesServico {
 	public void insert(Cliente obj) {
 		dao.insert(obj);
 	}
-
+	
+	
 }
