@@ -29,9 +29,10 @@
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="45.0" text="Id" />
           <TableColumn fx:id="tableColumnNome" minWidth="0.0" prefWidth="231.0" text="Nome" />
-            <TableColumn fx:id="tableColumnEndereco" prefWidth="239.0" text="Endereço" />
-            <TableColumn fx:id="tableColumnRank" prefWidth="128.0" text="Rank" />
-            <TableColumn fx:id="tableColumnTotal" prefWidth="131.0" text="Total de Compras" />
+            <TableColumn fx:id="tableColumnEndereco" prefWidth="177.0" text="Endereço" />
+            <TableColumn fx:id="tableColumnRank" prefWidth="115.0" text="Rank" />
+            <TableColumn fx:id="tableColumnTotal" prefWidth="107.0" text="Total de Compras" />
+            <TableColumn fx:id="tableColumnEditar" prefWidth="61.0" />
         </columns>
       </TableView>
    </children>

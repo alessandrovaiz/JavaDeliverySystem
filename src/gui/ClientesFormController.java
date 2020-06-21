@@ -90,7 +90,7 @@ public class ClientesFormController implements Initializable {
 				cliente = servicoClientes.findByName(textFieldNome.getText());
 				return cliente;
 			} else  {
-				cliente.setId(Integer.parseInt(textFieldId.getText()));
+				cliente.setId(Utilitarios.tentaAttParaInteiro(textFieldId.getText()));
 				cliente.setNome(textFieldNome.getText());
 				cliente.setRank(1);
 				

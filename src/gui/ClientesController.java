@@ -5,10 +5,13 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
+
 import application.Main;
 import gui.listeners.MudaDadosListener;
 import gui.util.Alertas;
 import gui.util.Utilitarios;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -43,7 +47,9 @@ public class ClientesController implements Initializable, MudaDadosListener {
 	private TableColumn<Cliente, Integer> tableColumnRank;
 	@FXML
 	private TableColumn<Cliente, Double> tableColumnTotal;
-	
+	@FXML
+	private TableColumn<Cliente, Cliente> tableColumnEditar;
+
 	@FXML
 	private Button btRegCliente;
 
@@ -51,10 +57,9 @@ public class ClientesController implements Initializable, MudaDadosListener {
 	public void onBtRegClienteAction(ActionEvent evento) {
 		Stage parentStage = Utilitarios.palcoAtual(evento);
 		Cliente cliente = new Cliente();
-		
-		
+
 		criarFormularioDialogo(cliente, "/gui/ClientesFormulario.fxml", parentStage);
-	
+
 	}
 
 	private ObservableList<Cliente> obsList;
@@ -73,8 +78,7 @@ public class ClientesController implements Initializable, MudaDadosListener {
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		tableColumnEndereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
 		tableColumnRank.setCellValueFactory(new PropertyValueFactory<>("rank"));
-		//tableColumnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
-		
+		// tableColumnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow(); // downcasting
 		tableViewCliente.prefHeightProperty().bind(stage.heightProperty()); // deixa a tabela do tamanho da janela
@@ -86,27 +90,26 @@ public class ClientesController implements Initializable, MudaDadosListener {
 																	// serviço
 		}
 		List<Cliente> list = servico.findAll();
-		for(Cliente p: list) {
+		for (Cliente p : list) {
 			System.out.println(p);
 		}
 		obsList = FXCollections.observableArrayList(list);
 		tableViewCliente.setItems(obsList);
+		initEditarBotoes();
 	}
 
-	private void criarFormularioDialogo(Cliente cliente,String nomeAbsoluto, Stage parentStage) {
+	private void criarFormularioDialogo(Cliente cliente, String nomeAbsoluto, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(nomeAbsoluto));
 			Pane painel = loader.load();
-			
+
 			ClientesFormController controller = loader.getController();
 			controller.setEntidadeCliente(cliente);
 			controller.setClientesServico(new ClientesServico());
-		
-			
+
 			controller.inscreveListener(this);
 			controller.atualizaDadosForm();
-			
-			
+
 			Stage stageDialogo = new Stage();
 			stageDialogo.setTitle("Dados do Cliente");
 			stageDialogo.setScene(new Scene(painel));
@@ -123,7 +126,26 @@ public class ClientesController implements Initializable, MudaDadosListener {
 	@Override
 	public void atualizaDados() {
 		updateTableView();
-		
+
+	}
+
+	private void initEditarBotoes() {
+		tableColumnEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEditar.setCellFactory(param -> new TableCell<Cliente, Cliente>() {
+			private final Button button = new Button("Editar");
+
+			@Override
+			protected void updateItem(Cliente obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(
+						event -> criarFormularioDialogo(obj, "/gui/ClientesFormulario.fxml", Utilitarios.palcoAtual(event)));
+			}
+		});
 	}
 
 }

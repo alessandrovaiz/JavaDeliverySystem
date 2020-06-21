@@ -29,11 +29,11 @@
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="45.0" text="Id" />
           <TableColumn fx:id="tableColumnCliente" minWidth="0.0" prefWidth="201.0" text="Cliente" />
-            <TableColumn fx:id="tableColumnEndereco" prefWidth="177.0" text="Endereço" />
-            <TableColumn fx:id="tableColumnStatus" prefWidth="108.0" text="Status" />
-            <TableColumn fx:id="tableColumnEntregador" prefWidth="108.0" text="Entregador" />
-            <TableColumn fx:id="tableColumnProduto" prefWidth="86.0" text="Produto" />
-            <TableColumn fx:id="tableColumnTotal" prefWidth="73.0" text="Total" />
+            <TableColumn fx:id="tableColumnEndereco" prefWidth="131.0" text="Endereço" />
+            <TableColumn fx:id="tableColumnStatus" prefWidth="76.0" text="Status" />
+            <TableColumn fx:id="tableColumnEntregador" prefWidth="98.0" text="Entregador" />
+            <TableColumn fx:id="tableColumnProduto" text="Produto" />
+            <TableColumn fx:id="tableColumnTotal" prefWidth="50.0" text="Total" />
         </columns>
       </TableView>
    </children>
