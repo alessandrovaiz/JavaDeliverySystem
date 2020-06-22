@@ -51,7 +51,10 @@ public class TelaPrincipalController implements Initializable {
 	
 	@FXML
 	public void onMenuIAcompanharEntregasAction() {
-		System.out.println("teste");
+		carregaView("/gui/AcompanharEntregas.fxml", (AcompanharEntregasController controller) -> {
+			controller.setPedidosServico(new PedidosServico());
+			controller.updateTableView();
+		});
 	}
 	
 	@FXML

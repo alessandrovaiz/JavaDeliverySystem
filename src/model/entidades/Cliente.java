@@ -52,7 +52,7 @@ public class Cliente {
 		setRankCliente();
 		
 	}
-	public void setRankCliente() {
+	private void setRankCliente() {
 		switch(rank) {
 		case 1: {	rankCliente = RankCliente.CLIENTE_NOVO; break; }
 		case 2: { 	rankCliente = RankCliente.CLIENTE_FREQUENTE;break;}

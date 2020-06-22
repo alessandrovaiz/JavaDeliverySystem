@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AcompanharEntregasController">
+   <children>
+      <Label prefHeight="26.0" prefWidth="675.0" text="Entregas em Andamento">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets left="300.0" top="5.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" />
+      <TableView fx:id="tableViewEntregas" prefHeight="143.0" prefWidth="376.0">
+        <columns>
+          <TableColumn fx:id="tableColumnIdPedido" prefWidth="84.0" text="Id Pedido" />
+          <TableColumn fx:id="tableColumnCliente" minWidth="0.0" prefWidth="192.0" text="Cliente" />
+            <TableColumn fx:id="tableColumnEndereco" prefWidth="242.0" text="Endereço" />
+            <TableColumn fx:id="tableColumnEntregador" prefWidth="281.0" text="Entregador" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

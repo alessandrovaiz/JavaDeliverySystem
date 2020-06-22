@@ -11,4 +11,6 @@ public interface PedidoDao {
 	void deleteById(Integer id);
 	Pedido findById(Integer id);
 	List<Pedido> findAll();
+	List<Pedido> findEntregasEmAndamento();
+	
 }

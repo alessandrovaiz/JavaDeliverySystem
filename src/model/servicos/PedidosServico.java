@@ -27,4 +27,8 @@ public class PedidosServico {
 		dao.deleteById(obj.getId());
 	}
 
+	public List<Pedido> findEntregasEmAndamento() {
+		return dao.findEntregasEmAndamento();
+	}
+
 }

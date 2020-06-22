@@ -248,6 +248,73 @@ public class PedidoDaoJDBC implements PedidoDao{
 	
 	}
 	
+	@Override
+	public List<Pedido> findEntregasEmAndamento() {
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement(
+							"SELECT pedido.*,cliente.endereco as enderecoCliente, cliente.nome as nomeCliente," + 
+							"							cliente.rank as rankCliente," + 
+							"							produto.nome as nomeProduto, produto.valor as valorProduto,produto.quantidade as qtdProduto," + 
+							"							entregador.nome as nomeEntregador, entregador.custo_p_entrega as custoEntregador \r\n" + 
+							"							FROM pedido " + 
+							"							INNER JOIN cliente ON pedido.cliente_id = cliente.id " + 
+							"							INNER JOIN produto ON pedido.produto_id = produto.id " + 
+							"							INNER JOIN entregador ON pedido.entregador_id = entregador.id WHERE pedido.status = 3;" );
+			
+			rs = st.executeQuery();
+
+			List<Pedido> list = new ArrayList<>();
+
+			while (rs.next()) {
+				
+				
+				
+				Cliente cliente = new Cliente();
+				
+				cliente.setEndereco(rs.getString("enderecoCliente"));
+				cliente.setNome(rs.getString("nomeCliente"));
+				cliente.setId(rs.getInt("cliente_id"));
+				cliente.setRank(rs.getInt("rankCliente"));
+				
+				Entregador entregador = new Entregador();
+				
+				entregador.setId(rs.getInt("entregador_id"));
+				entregador.setNome(rs.getString("nomeEntregador"));
+				entregador.setValorPorEntrega(rs.getDouble("custoEntregador"));
+				
+				
+				Pedido obj = new Pedido();
+				
+				
+				
+				
+				obj.setId(rs.getInt("id"));
+				obj.setCliente(cliente);
+				obj.setEnderecoEntrega(rs.getString("enderecoCliente"));
+			
+				obj.setEntregador(entregador);
+				obj.setQtd(rs.getInt("qtd"));
+				obj.setStatus(rs.getInt("status"));
+				obj.setTotal(rs.getDouble("valor"));
+				list.add(obj);
+				
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	
+	}
+	
 	
 	
 }
