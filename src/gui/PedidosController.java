@@ -43,10 +43,6 @@ public class PedidosController implements Initializable, MudaDadosListener {
 	private PedidosServico servico;
 	
 	
-	private Cliente cliente;
-	private Produto produto;
-	private Entregador entregador;
-	
 	
 	@FXML
 	private TableView<Pedido> tableViewPedido;
@@ -57,7 +53,7 @@ public class PedidosController implements Initializable, MudaDadosListener {
 	@FXML
 	private TableColumn<Pedido, String> tableColumnEndereco;
 	@FXML
-	private TableColumn<Pedido, Integer> tableColumnStatus;
+	private TableColumn<Pedido, String> tableColumnStatus;
 	@FXML
 	private TableColumn<Pedido, String> tableColumnEntregador;
 	@FXML
@@ -99,7 +95,7 @@ public class PedidosController implements Initializable, MudaDadosListener {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 		tableColumnEndereco.setCellValueFactory(new PropertyValueFactory<>("enderecoEntrega"));
-		tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+		tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>("statusPedido"));
 		tableColumnEntregador.setCellValueFactory(new PropertyValueFactory<>("entregador"));
 		tableColumnProduto.setCellValueFactory(new PropertyValueFactory<>("produtos"));
 		tableColumnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));

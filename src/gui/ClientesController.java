@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
-
 import application.Main;
 import db.DbIntegrityException;
 import gui.listeners.MudaDadosListener;
@@ -32,7 +30,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entidades.Cliente;
-import model.entidades.Entregador;
 import model.servicos.ClientesServico;
 
 public class ClientesController implements Initializable, MudaDadosListener {
@@ -48,7 +45,7 @@ public class ClientesController implements Initializable, MudaDadosListener {
 	@FXML
 	private TableColumn<Cliente, String> tableColumnEndereco;
 	@FXML
-	private TableColumn<Cliente, Integer> tableColumnRank;
+	private TableColumn<Cliente, String> tableColumnRank;
 	@FXML
 	private TableColumn<Cliente, Double> tableColumnTotal;
 	@FXML
@@ -83,7 +80,7 @@ public class ClientesController implements Initializable, MudaDadosListener {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		tableColumnEndereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
-		tableColumnRank.setCellValueFactory(new PropertyValueFactory<>("rank"));
+		tableColumnRank.setCellValueFactory(new PropertyValueFactory<>("rankCliente"));
 		// tableColumnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow(); // downcasting

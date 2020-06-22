@@ -77,22 +77,32 @@ public class Pedido {
 		return status;
 	}
 
-
-	public void setStatus(Integer i) {
-		this.status = i;
-		switch(i) {
-		case 1: { statusPedido = StatusPedido.AGUARDANDO_ACEITACAO; break; } 
-		case 2: { statusPedido = StatusPedido.EM_PREPARO; break; } 
-		case 3: { statusPedido = StatusPedido.A_CAMINHO; break; } 
-		case 4: { statusPedido = StatusPedido.ENTREGUE; break; } 
-		}
+	public void setStatus(Integer status) {
+		this.status = status;
+		
+		
+		setStatusPedido();
 	}
 
+	private void setStatusPedido() {
+		
+		switch(this.status) {
+		case 1: { this.statusPedido = StatusPedido.ACEITO; break; } 
+		case 2: { this.statusPedido = StatusPedido.EM_PREPARO; break; } 
+		case 3: { this.statusPedido = StatusPedido.A_CAMINHO; break; } 
+		case 4: { this.statusPedido = StatusPedido.ENTREGUE; break; } 
+		
+		}
+		
+	}
 
+	public String getStatusPedido () {
+		return statusPedido.getStatusStr();
+	}
 	public Entregador getEntregador() {
 		return entregador;
 	}
-
+	
 
 	public void setEntregador(Entregador entregador) {
 		this.entregador = entregador;

@@ -45,7 +45,7 @@ public class EntregadoresController implements Initializable, MudaDadosListener 
 	@FXML
 	private TableColumn<Entregador, Double> tableColumnCustoEntrega;
 	@FXML
-	private TableColumn<Entregador, Integer> tableColumnStatus;
+	private TableColumn<Entregador, String> tableColumnStatus;
 	@FXML
 	private TableColumn<Entregador, Entregador> tableColumnEditar;
 	@FXML
@@ -78,7 +78,7 @@ public class EntregadoresController implements Initializable, MudaDadosListener 
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		tableColumnCustoEntrega.setCellValueFactory(new PropertyValueFactory<>("valorPorEntrega"));
-		tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+		tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>("statusEntregador"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow(); // downcasting
 		tableViewEntregador.prefHeightProperty().bind(stage.heightProperty()); // deixa a tabela do tamanho da janela

@@ -54,18 +54,19 @@ public class Entregador {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+		setStatusEntregador();
 	}
 
-	public StatusEntregador getStatusEntregador() {
-		return statusEntregador;
+	public String getStatusEntregador() {
+		return statusEntregador.getStatusStr();
 	}
 
-	public void setStatusEntregador() {
+	private void setStatusEntregador() {
 		switch(this.status) {
 		case 1: { this.statusEntregador = StatusEntregador.LIVRE; break; } 
 		case 2: { this.statusEntregador = StatusEntregador.OCUPADO; break; } 
-		
 		}
+		
 	}
 
 	@Override

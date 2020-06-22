@@ -8,7 +8,7 @@ public class Cliente {
 	private Integer id;
 	private String endereco;
 	private int rank;
-	private RankCliente rank_cliente;
+	private RankCliente rankCliente;
 	
 	
 	public Cliente() {
@@ -49,10 +49,20 @@ public class Cliente {
 	}
 	public void setRank(int i) {
 		this.rank = i;
-		
+		setRankCliente();
 		
 	}
-
+	public void setRankCliente() {
+		switch(rank) {
+		case 1: {	rankCliente = RankCliente.CLIENTE_NOVO; break; }
+		case 2: { 	rankCliente = RankCliente.CLIENTE_FREQUENTE;break;}
+		case 3: {	rankCliente = RankCliente.CLIENTE_VIP;break;}
+		
+		}
+	}
+	public String getRankCliente() {
+		return rankCliente.getStatusStr();
+	}
 	@Override
 	public String toString() {
 		return nome;

@@ -18,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entidades.Cliente;
-import model.entidades.Produto;
 import model.servicos.ClientesServico;
 
 public class ClientesFormController implements Initializable {

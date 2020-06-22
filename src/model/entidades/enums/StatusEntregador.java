@@ -2,12 +2,14 @@ package model.entidades.enums;
 
 public enum StatusEntregador {
 	
-	LIVRE(1), OCUPADO(2);
+	LIVRE(1,"Livre"), OCUPADO(2,"Ocupado");
 
 	
 	private int valor;
-	StatusEntregador(int valorOpcao) {
-		valor = valorOpcao;
+	private String statusStr;
+	StatusEntregador(int valorOpcao,String statusStr) {
+		this.valor = valorOpcao;
+		this.statusStr = statusStr;
 	}
 	
 	public void setValor(int valorOpcao) {
@@ -15,5 +17,8 @@ public enum StatusEntregador {
 	}
 	public int getValor() {
 		return valor;
+	}
+	public String getStatusStr() {
+		return statusStr;
 	}
 }
