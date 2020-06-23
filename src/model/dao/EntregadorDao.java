@@ -12,4 +12,5 @@ public interface EntregadorDao {
 	Entregador findById(Integer id);
 	Entregador findByName(String nome);
 	List<Entregador> findAll();
+	List<Entregador> findEntregadoresDisp();
 }

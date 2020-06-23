@@ -71,46 +71,47 @@ public class PedidosFormController implements Initializable {
 
 
 		if (entidadeCliente == null) {
-			throw new IllegalStateException("Cliente não pode ser nulo!");
+			throw new IllegalStateException("Cliente nï¿½o pode ser nulo!");
 		}
 		if (entidadePedido == null) {
-			throw new IllegalStateException("Pedido não pode ser nulo!");
+			throw new IllegalStateException("Pedido nï¿½o pode ser nulo!");
 		}
 		if (entidadeEntregador == null) {
-			throw new IllegalStateException("Entregador não pode ser nulo!");
+			throw new IllegalStateException("Entregador nï¿½o pode ser nulo!");
 		}
 		if (entidadeProduto == null) {
-			throw new IllegalStateException("Produto não pode ser nulo!");
+			throw new IllegalStateException("Produto nï¿½o pode ser nulo!");
 		}
 		
 		if(textFieldCliente.getText()==null) {
-			Alertas.showAlert("Erro", "O campo cliente não pode ser vazio! ", null, AlertType.ERROR);
+			Alertas.showAlert("Erro", "O campo cliente nï¿½o pode ser vazio! ", null, AlertType.ERROR);
 			
 			return;
 		}
 		
 		if(textFieldEntregador.getText()==null) {
-			Alertas.showAlert("Erro", "O campo entregador não pode ser vazio! ", null, AlertType.ERROR);
+			Alertas.showAlert("Erro", "O campo entregador nï¿½o pode ser vazio! ", null, AlertType.ERROR);
 			return;
 		}
 		
 		if (textFieldEndereco.getText() == null) {
-			Alertas.showAlert("Erro", "O campo endereço não pode ser vazio! ", null, AlertType.ERROR);
+			Alertas.showAlert("Erro", "O campo endereï¿½o nï¿½o pode ser vazio! ", null, AlertType.ERROR);
 			return;
 			
 		}
 		
 		if(textFieldProduto.getText()==null) {
-			Alertas.showAlert("Erro", "O campo produto não pode ser vazio! ", null, AlertType.ERROR);
+			Alertas.showAlert("Erro", "O campo produto nï¿½o pode ser vazio! ", null, AlertType.ERROR);
 			return;
 		}
 		if(textFieldQuantidade.getText().length()<1) {
-			Alertas.showAlert("Erro", "O campo quantidade não pode ser vazio! ", null, AlertType.ERROR);
+			Alertas.showAlert("Erro", "O campo quantidade nï¿½o pode ser vazio! ", null, AlertType.ERROR);
 			return;
 		} 
 		
 		
 		entidadePedido = getPedidoDados();
+		
 		servicoPedidos.salvaOuAtualiza(entidadePedido);
 		notificaListeners();
 		Utilitarios.palcoAtual(evento).close();
@@ -131,6 +132,7 @@ public class PedidosFormController implements Initializable {
 
 			if (servicoEntregadores.findByName(textFieldEntregador.getText()) != null) {
 				entregador = servicoEntregadores.findByName(textFieldEntregador.getText());
+				
 				return entregador;
 			} else {
 				entregador.setNome(textFieldEntregador.getText());
@@ -180,6 +182,7 @@ public class PedidosFormController implements Initializable {
 		try {
 			if (servicoProdutos.findByName(textFieldProduto.getText()) != null) {
 				produto = servicoProdutos.findByName(textFieldProduto.getText());
+				
 				return produto;
 			} else {
 				produto.setNome(textFieldProduto.getText());
@@ -256,7 +259,7 @@ public class PedidosFormController implements Initializable {
 	public void atualizaDadosForm() {
 		if ((entidadePedido == null) || (entidadeProduto == null) || (entidadeCliente == null)
 				|| (entidadeEntregador == null)) {
-			throw new IllegalStateException("Entidade está nula");
+			throw new IllegalStateException("Entidade estï¿½ nula");
 		}
 
 		textFieldId.setText(String.valueOf(entidadePedido.getId()));

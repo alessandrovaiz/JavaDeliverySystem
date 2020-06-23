@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClientesVipController">
+   <children>
+      <Label prefHeight="26.0" prefWidth="675.0" text="Clientes Vip">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets left="300.0" top="5.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Label text="Não esqueça de mantê-los satisfeitos!" textFill="#e11818">
+               <padding>
+                  <Insets left="250.0" />
+               </padding>
+            </Label>
+         </items></ToolBar>
+      <TableView fx:id="tableViewClientesVip" prefHeight="295.0" prefWidth="603.0">
+        <columns>
+          <TableColumn fx:id="tableColumnId" prefWidth="78.0" text="Id" />
+          <TableColumn fx:id="tableColumnNome" minWidth="0.0" prefWidth="298.0" text="Nome" />
+        </columns>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </TableView>
+   </children>
+</VBox>

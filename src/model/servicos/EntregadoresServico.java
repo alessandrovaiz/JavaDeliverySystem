@@ -13,6 +13,10 @@ public class EntregadoresServico {
 		
 		return dao.findAll();
 	}
+	public List<Entregador> findEntregadoresDisp(){
+		
+		return dao.findEntregadoresDisp();
+	}
 	
 	public void salvaOuAtualiza(Entregador obj) {
 		if (obj.getId()==null) {

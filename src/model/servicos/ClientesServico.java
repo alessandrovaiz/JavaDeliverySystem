@@ -42,6 +42,10 @@ public class ClientesServico {
 	public void insert(Cliente obj) {
 		dao.insert(obj);
 	}
+
+	public List<Cliente> findClientesVip() {
+		return dao.findClientesVip();
+	}
 	
 	
 }

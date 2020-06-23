@@ -212,6 +212,45 @@ public class ClienteDaoJDBC implements ClienteDao{
 		
 	}
 	
+	@Override
+	public List<Cliente> findClientesVip() {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement(
+							"SELECT * FROM cliente WHERE `rank` = 3;" );
+			
+			rs = st.executeQuery();
+
+			List<Cliente> list = new ArrayList<>();
+
+			while (rs.next()) {
+				
+				
+				Cliente obj = new Cliente();
+				
+				obj.setEndereco(rs.getString("endereco"));
+				obj.setNome(rs.getString("nome"));
+				obj.setId(rs.getInt("id"));
+				obj.setRank(rs.getInt("rank"));
+				
+		
+				list.add(obj);
+				
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	
+	}
+	
 	
 	
 }

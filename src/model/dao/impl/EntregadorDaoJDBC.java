@@ -183,6 +183,48 @@ public class EntregadorDaoJDBC implements EntregadorDao{
 	}
 	
 	@Override
+	public List<Entregador> findEntregadoresDisp() {
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement(
+							"SELECT * FROM entregador WHERE status = 1; " );
+			
+			rs = st.executeQuery();
+
+			List<Entregador> list = new ArrayList<>();
+
+			while (rs.next()) {
+				
+				Entregador obj = new Entregador();
+				
+				obj.setId(rs.getInt("id"));
+				obj.setNome(rs.getString("nome"));
+				obj.setValorPorEntrega(rs.getDouble("custo_p_entrega"));
+				obj.setStatus(rs.getInt("status"));
+				
+				
+				
+				
+				list.add(obj);
+				
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	
+	}
+	
+	
+	@Override
 	public Entregador findByName(String nome) {
 		PreparedStatement st = null;
 		ResultSet rs = null;

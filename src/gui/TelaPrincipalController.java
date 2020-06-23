@@ -25,11 +25,9 @@ public class TelaPrincipalController implements Initializable {
 	@FXML
 	private MenuItem menuIAcompanharEntregas;
 	@FXML
-	private MenuItem menuIVendedoresDisponiveis;
+	private MenuItem menuIEntregadoresDisponiveis;
 	@FXML
 	private MenuItem menuIClientesVip;
-	@FXML
-	private MenuItem menuIEstoque;
 	@FXML
 	private MenuItem menuIProducao;
 	
@@ -58,19 +56,22 @@ public class TelaPrincipalController implements Initializable {
 	}
 	
 	@FXML
-	public void onMenuIVendedoresDisponiveisAction() {
-		System.out.println("teste");
+	public void onMenuIEntregadoresDisponiveisAction() {
+		carregaView("/gui/EntregadoresDisponiveis.fxml", (EntregadoresDisponiveisController controller) -> {
+			controller.setEntregadoresServico(new EntregadoresServico());
+			controller.updateTableView();
+		});
 	}
 	
 	@FXML
 	public void onMenuIClientesVipAction() {
-		System.out.println("teste");
+		carregaView("/gui/ClientesVip.fxml", (ClientesVipController controller) -> {
+			controller.setClientesServico(new ClientesServico());
+			controller.updateTableView();
+		});
 	}
 	
-	@FXML
-	public void onMenuIEstoqueAction() {
-		System.out.println("teste");
-	}
+	
 	
 	@FXML
 	public void onMenuIProducaoAction() {
