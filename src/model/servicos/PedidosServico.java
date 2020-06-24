@@ -26,7 +26,11 @@ public class PedidosServico {
 	public void remove(Pedido obj) {
 		dao.deleteById(obj.getId());
 	}
-
+	
+	public void atualizaStatus(Pedido obj) {
+		dao.atualizaStatus(obj);
+	}
+	
 	public List<Pedido> findEntregasEmAndamento() {
 		return dao.findEntregasEmAndamento();
 	}

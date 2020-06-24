@@ -28,14 +28,15 @@
       <TableView fx:id="tableViewPedido" prefHeight="143.0" prefWidth="376.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="45.0" text="Id" />
-          <TableColumn fx:id="tableColumnCliente" minWidth="0.0" prefWidth="201.0" text="Cliente" />
-            <TableColumn fx:id="tableColumnEndereco" prefWidth="131.0" text="Endereço" />
-            <TableColumn fx:id="tableColumnStatus" prefWidth="76.0" text="Status" />
-            <TableColumn fx:id="tableColumnEntregador" prefWidth="98.0" text="Entregador" />
+          <TableColumn fx:id="tableColumnCliente" minWidth="0.0" prefWidth="145.0" text="Cliente" />
+            <TableColumn fx:id="tableColumnEndereco" prefWidth="145.0" text="Endereço" />
+            <TableColumn fx:id="tableColumnStatus" prefWidth="64.0" text="Status" />
+            <TableColumn fx:id="tableColumnEntregador" prefWidth="102.0" text="Entregador" />
             <TableColumn fx:id="tableColumnProduto" text="Produto" />
-            <TableColumn fx:id="tableColumnTotal" prefWidth="50.0" text="Total" />
-            <TableColumn fx:id="tableColumnEditar" prefWidth="54.0" />
-            <TableColumn fx:id="tableColumnExcluir" prefWidth="63.0" />
+            <TableColumn fx:id="tableColumnTotal" prefWidth="53.0" text="Total" />
+            <TableColumn fx:id="tableColumnAlterarStatus" prefWidth="51.0" />
+            <TableColumn fx:id="tableColumnEditar" prefWidth="59.0" />
+            <TableColumn fx:id="tableColumnExcluir" prefWidth="51.0" />
         </columns>
       </TableView>
    </children>

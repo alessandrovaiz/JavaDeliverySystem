@@ -73,7 +73,7 @@ public class PedidoDaoJDBC implements PedidoDao{
 			st = conn.prepareStatement(
 				"UPDATE pedido " +
 				"SET qtd = ?,`status`=?,valor=?,cliente_id=?,entregador_id=?,produto_id=? " +
-				"WHERE Id = ?");
+				"WHERE id = ?");
 
 			st.setInt(1, obj.getQtd());
 			st.setInt(2, obj.getStatus());
@@ -330,7 +330,7 @@ public class PedidoDaoJDBC implements PedidoDao{
 			
 			rs = st.executeQuery();
 
-			List<Pedido> list = new ArrayList<>();
+			
 
 			while (rs.next()) {
 				
@@ -350,5 +350,27 @@ public class PedidoDaoJDBC implements PedidoDao{
 	
 	}
 	
-	
-}
+	public void atualizaStatus(Pedido obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+				"UPDATE pedido " +
+				"SET `status`=? " +
+				"WHERE id = ?");
+
+			st.setInt(1, obj.getStatus());
+			
+			st.setInt(2, obj.getId());
+
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} 
+		finally {
+			DB.closeStatement(st);
+		}
+	}	
+	}
+		
+

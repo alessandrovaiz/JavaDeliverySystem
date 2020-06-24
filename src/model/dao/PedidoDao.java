@@ -13,5 +13,5 @@ public interface PedidoDao {
 	List<Pedido> findAll();
 	List<Pedido> findEntregasEmAndamento();
 	Double findCustoEntregadores();
-	
+	void atualizaStatus(Pedido obj);
 }

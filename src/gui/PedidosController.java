@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -27,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entidades.Cliente;
@@ -60,6 +62,8 @@ public class PedidosController implements Initializable, MudaDadosListener {
 	private TableColumn<Pedido, String> tableColumnProduto;
 	@FXML
 	private TableColumn<Pedido, Double> tableColumnTotal;
+	@FXML
+	private TableColumn<Pedido, Pedido> tableColumnAlterarStatus;
 	@FXML
 	private TableColumn<Pedido, Pedido> tableColumnEditar;
 	@FXML
@@ -118,6 +122,7 @@ public class PedidosController implements Initializable, MudaDadosListener {
 		tableViewPedido.setItems(obsList);
 		initEditarBotoes();
 		initExcluirBotoes();
+		initAlterarStatusBotoes();
 		
 	}
 
@@ -156,6 +161,34 @@ public class PedidosController implements Initializable, MudaDadosListener {
 		}
 	}
 	
+	private void abreAlterarStatus(Pedido pedido, String nomeAbsoluto,Stage parentStage) {
+		
+		try { 
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(nomeAbsoluto));
+		
+		Pane painel = loader.load();
+		
+		AlteraStatusPedidoController controller = loader.getController();
+		controller.setPedidosServico(new PedidosServico());
+		controller.setEntidadePedido(pedido);
+		
+		controller.inscreveListener(this);
+		controller.atualizaDadosForm();
+		
+		Stage stageDialogo = new Stage();
+		stageDialogo.setTitle("Alterar Status Pedido");
+		stageDialogo.setScene(new Scene(painel));
+		stageDialogo.setResizable(false);
+		stageDialogo.initOwner(parentStage);
+		stageDialogo.initModality(Modality.WINDOW_MODAL);
+		stageDialogo.showAndWait();
+	
+		} catch (IOException e) {
+			Alertas.showAlert("IOException", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
+		}
+	
+	}
+	
 	
 	
 
@@ -163,6 +196,29 @@ public class PedidosController implements Initializable, MudaDadosListener {
 	public void atualizaDados() {
 		updateTableView();
 		
+	}
+	private void initAlterarStatusBotoes() {
+		tableColumnAlterarStatus.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnAlterarStatus.setCellFactory(param -> new TableCell<Pedido, Pedido>() {
+			private final Button button = new Button("Status");
+
+			@Override
+			protected void updateItem(Pedido obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				
+				
+				
+				
+				button.setOnAction(
+						event -> abreAlterarStatus(obj, "/gui/AlteraStatusPedidoForm.fxml", Utilitarios.palcoAtual(event)));
+			}
+			
+		});
 	}
 	
 	private void initEditarBotoes() {
