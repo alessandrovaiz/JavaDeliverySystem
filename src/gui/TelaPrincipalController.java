@@ -75,7 +75,10 @@ public class TelaPrincipalController implements Initializable {
 	
 	@FXML
 	public void onMenuIProducaoAction() {
-		System.out.println("teste");
+		carregaView("/gui/Producao.fxml", (ProducaoController controller) -> {
+			controller.setPedidosServico(new PedidosServico());
+			controller.updateTableView();
+		});
 	}
 	
 	

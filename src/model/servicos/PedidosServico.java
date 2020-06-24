@@ -30,5 +30,8 @@ public class PedidosServico {
 	public List<Pedido> findEntregasEmAndamento() {
 		return dao.findEntregasEmAndamento();
 	}
-
+	
+	public Double findCustoEntregadores() {
+		return dao.findCustoEntregadores();
+	}
 }

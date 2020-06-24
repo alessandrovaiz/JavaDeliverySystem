@@ -12,5 +12,6 @@ public interface PedidoDao {
 	Pedido findById(Integer id);
 	List<Pedido> findAll();
 	List<Pedido> findEntregasEmAndamento();
+	Double findCustoEntregadores();
 	
 }

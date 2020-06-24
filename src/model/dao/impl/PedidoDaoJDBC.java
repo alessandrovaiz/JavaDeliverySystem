@@ -314,7 +314,41 @@ public class PedidoDaoJDBC implements PedidoDao{
 		}
 	
 	}
+
+	@Override
+	public Double findCustoEntregadores() {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		Double custoEntregadores = (double) 0;
+		
+		try {
+			st = conn.prepareStatement(
+							"SELECT  pedido.*," + 
+							"entregador.nome as nomeEntregador, entregador.custo_p_entrega as custoEntregador " + 
+							"FROM pedido " + 
+							"INNER JOIN entregador ON pedido.entregador_id = entregador.id ;" );
+			
+			rs = st.executeQuery();
+
+			List<Pedido> list = new ArrayList<>();
+
+			while (rs.next()) {
+				
+				
+				custoEntregadores+=rs.getDouble("custoEntregador");
+				
+			}
+			return custoEntregadores;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	
+	}
 	
 	
 }
