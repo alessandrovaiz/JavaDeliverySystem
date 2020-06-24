@@ -47,5 +47,9 @@ public class ClientesServico {
 		return dao.findClientesVip();
 	}
 	
+	public void atualizaRank(Cliente obj) {
+		dao.atualizaRank(obj);
+	}
+	
 	
 }

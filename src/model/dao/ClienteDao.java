@@ -13,5 +13,6 @@ public interface ClienteDao {
 	Cliente findByName(String nome);
 	List<Cliente> findAll();
 	List<Cliente> findClientesVip();
+	void atualizaRank(Cliente obj);
 	
 }

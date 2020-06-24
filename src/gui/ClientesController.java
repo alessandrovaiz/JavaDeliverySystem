@@ -47,7 +47,7 @@ public class ClientesController implements Initializable, MudaDadosListener {
 	@FXML
 	private TableColumn<Cliente, String> tableColumnRank;
 	@FXML
-	private TableColumn<Cliente, Double> tableColumnTotal;
+	private TableColumn<Cliente, Cliente> tableColumnAlterarStatus;
 	@FXML
 	private TableColumn<Cliente, Cliente> tableColumnEditar;
 	@FXML
@@ -100,6 +100,7 @@ public class ClientesController implements Initializable, MudaDadosListener {
 		tableViewCliente.setItems(obsList);
 		initEditarBotoes();
 		initExcluirBotoes();
+		initAlterarStatusBotoes();
 	}
 
 	private void criarFormularioDialogo(Cliente cliente, String nomeAbsoluto, Stage parentStage) {
@@ -127,12 +128,64 @@ public class ClientesController implements Initializable, MudaDadosListener {
 		}
 	}
 
+	private void abreAlterarStatus(Cliente cliente, String nomeAbsoluto,Stage parentStage) {
+		
+		try { 
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(nomeAbsoluto));
+		
+		Pane painel = loader.load();
+		
+		AlteraRankClienteController controller = loader.getController();
+		controller.setClientesServico(new ClientesServico());
+		controller.setEntidadeCliente(cliente);
+		
+		controller.inscreveListener(this);
+		controller.atualizaDadosForm();
+		
+		Stage stageDialogo = new Stage();
+		stageDialogo.setTitle("Alterar Rank do Cliente");
+		stageDialogo.setScene(new Scene(painel));
+		stageDialogo.setResizable(false);
+		stageDialogo.initOwner(parentStage);
+		stageDialogo.initModality(Modality.WINDOW_MODAL);
+		stageDialogo.showAndWait();
+	
+		} catch (IOException e) {
+			Alertas.showAlert("IOException", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
+		}
+	
+	}
+	
 	@Override
 	public void atualizaDados() {
 		updateTableView();
 
 	}
 
+	private void initAlterarStatusBotoes() {
+		tableColumnAlterarStatus.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnAlterarStatus.setCellFactory(param -> new TableCell<Cliente, Cliente>() {
+			private final Button button = new Button("Status");
+
+			@Override
+			protected void updateItem(Cliente obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				
+				
+				
+				
+				button.setOnAction(
+						event -> abreAlterarStatus(obj, "/gui/AlteraRankClienteForm.fxml", Utilitarios.palcoAtual(event)));
+			}
+			
+		});
+	}
+	
 	private void initEditarBotoes() {
 		tableColumnEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnEditar.setCellFactory(param -> new TableCell<Cliente, Cliente>() {

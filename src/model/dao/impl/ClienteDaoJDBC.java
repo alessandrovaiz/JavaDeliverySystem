@@ -251,6 +251,30 @@ public class ClienteDaoJDBC implements ClienteDao{
 	
 	}
 	
+	@Override
+	public void atualizaRank(Cliente obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+				"UPDATE cliente " +
+				"SET `rank`=?" +
+				" WHERE id = ?");
+			
+			st.setInt(1, obj.getRank());
+			
+			st.setInt(2, obj.getId());
+			
+
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} 
+		finally {
+			DB.closeStatement(st);
+		}
+	}	
+	
 	
 	
 }
