@@ -4,9 +4,12 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import db.DbException;
+import gui.util.Alertas;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import model.entidades.Pedido;
 import model.servicos.PedidosServico;
 
@@ -23,12 +26,11 @@ public class ProducaoController implements Initializable {
 	@FXML
 	private Label totalLimpo;
 
-	private Double somaTotBruto=(double) 0;
+	private Double somaTotBruto = (double) 0;
 	private Double custoEntregadores;
 	private int qtdPedEntregues;
-	private Double totLimpo=(double) 0;
-	
-	
+	private Double totLimpo = (double) 0;
+
 	public void setPedidosServico(PedidosServico servico) {
 		this.servico = servico;
 	}
@@ -36,56 +38,51 @@ public class ProducaoController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
-		
-		
-	    
-	}
-	
-	private void initializeNodes() {
-		
-		
 
-		//Stage stage = (Stage) Main.getMainScene().getWindow(); // downcasting
-		//tableViewEntregadoresDisp.prefHeightProperty().bind(stage.heightProperty()); // deixa a tabela do tamanho da janela
 	}
+
+	private void initializeNodes() {
+
+		// Stage stage = (Stage) Main.getMainScene().getWindow(); // downcasting
+		// tableViewEntregadoresDisp.prefHeightProperty().bind(stage.heightProperty());
+		// // deixa a tabela do tamanho da janela
+	}
+
 	private void setCampos() {
-		List<Pedido> list = servico.findAll();
-		for (Pedido p : list) {
-			somaTotBruto+= p.getTotal()   ;
+		try {
+			List<Pedido> list = servico.findAll();
+			for (Pedido p : list) {
+				somaTotBruto += p.getTotal();
+			}
+			totalBruto.setText(": R$ " + somaTotBruto);
+
+			custoEntregadores = servico.findCustoEntregadores();
+
+			valorEntregadores.setText(": R$ " + custoEntregadores);
+
+			for (Pedido z : list) {
+				if (z.getStatus() == 4) {
+					qtdPedEntregues++;
+				}
+			}
+
+			qtdPedidosEntregues.setText(": " + qtdPedEntregues);
+
+			totLimpo = somaTotBruto - custoEntregadores;
+
+			totalLimpo.setText(": R$ " + totLimpo);
+		} catch (DbException e) {
+			Alertas.showAlert("Erro inesperado", null, "Erro ao resgatar dados", AlertType.ERROR);
 		}
-		totalBruto.setText(": R$ " + somaTotBruto);
-		
-	    custoEntregadores = servico.findCustoEntregadores();
-	    
-	    valorEntregadores.setText(": R$ " + custoEntregadores);
-	    
-	    for(Pedido z: list) {
-	    	if(z.getStatus()==4) {
-	    		qtdPedEntregues++;
-	    	}
-	    }
-	    
-	    qtdPedidosEntregues.setText(": " + qtdPedEntregues);
-	    
-	    totLimpo = somaTotBruto - custoEntregadores;
-	    
-	    totalLimpo.setText(": R$ " + totLimpo);
 	}
+
 	public void updateTableView() {
 		if (servico == null) {
 			throw new IllegalStateException("O serviço está nulo"); // evita que o programador esqueça de injetar o
 																	// serviço
 		}
 		setCampos();
-		
-		
-	    
 
 	}
 
-	
-
-	
-
-	
 }
