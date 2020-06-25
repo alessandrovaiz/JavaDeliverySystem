@@ -23,6 +23,8 @@ public class EntregadoresServico {
 			dao.insert(obj);
 		}
 		else {
+			Entregador aux = dao.findById(obj.getId());
+			obj.setStatus(aux.getStatus());
 			dao.update(obj);
 		}
 	}
@@ -46,5 +48,7 @@ public class EntregadoresServico {
 		dao.insert(obj);
 	}
 
-
+	public void atualizaStatus(Entregador obj) {
+		dao.atualizaStatus(obj);
+	}
 }

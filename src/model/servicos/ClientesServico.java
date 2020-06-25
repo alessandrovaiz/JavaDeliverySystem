@@ -18,7 +18,9 @@ public class ClientesServico {
 		if (obj.getId()==null) {
 			dao.insert(obj);
 		}
-		else {
+		else { // a necessidade do cliente aux é para que o rank não seja reinicializado na hora de atualizar o cliente
+			Cliente aux = dao.findById(obj.getId());
+			obj.setRank(aux.getRank());
 			dao.update(obj);
 		}
 	}

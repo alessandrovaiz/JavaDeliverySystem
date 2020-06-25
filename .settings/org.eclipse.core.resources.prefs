@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/gui/AlteraRankClienteController.java=UTF-8
+encoding//src/gui/AlteraStatusEntregadorController.java=UTF-8
 encoding//src/gui/AlteraStatusPedidoController.java=UTF-8
+encoding//src/gui/ClientesController.java=UTF-8
+encoding//src/gui/ClientesFormController.java=UTF-8
 encoding//src/gui/PedidosFormController.java=UTF-8

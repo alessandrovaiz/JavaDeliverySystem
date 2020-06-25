@@ -31,6 +31,7 @@
           <TableColumn fx:id="tableColumnNome" minWidth="0.0" prefWidth="231.0" text="Nome" />
             <TableColumn fx:id="tableColumnCustoEntrega" prefWidth="177.0" text="Custo por Entrega" />
             <TableColumn fx:id="tableColumnStatus" prefWidth="115.0" text="Status" />
+            <TableColumn fx:id="tableColumnAlterarStatus" prefWidth="61.0" />
             <TableColumn fx:id="tableColumnEditar" prefWidth="61.0" />
             <TableColumn fx:id="tableColumnExcluir" prefWidth="61.0" />
         </columns>

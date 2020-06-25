@@ -13,4 +13,5 @@ public interface EntregadorDao {
 	Entregador findByName(String nome);
 	List<Entregador> findAll();
 	List<Entregador> findEntregadoresDisp();
+	void atualizaStatus(Entregador obj);
 }

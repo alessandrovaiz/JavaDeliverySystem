@@ -183,7 +183,12 @@ public class PedidosFormController implements Initializable {
 			if (servicoProdutos.findByName(textFieldProduto.getText()) != null) {
 				produto = servicoProdutos.findByName(textFieldProduto.getText());
 				
+				
+				int aux = produto.getQtd()-Utilitarios.tentaAttParaInteiro(textFieldQuantidade.getText());
+				produto.setQtd(aux);
+				servicoProdutos.update(produto); // reduz quantidade do objeto produto no banco de dados
 				return produto;
+			
 			} else {
 				produto.setNome(textFieldProduto.getText());
 				valor = JOptionPane.showInputDialog("Insira o valor do produto!");
@@ -193,7 +198,8 @@ public class PedidosFormController implements Initializable {
 				servicoProdutos.insert(produto);
 				this.entidadeProduto = produto;
 				return produto;
-			} 
+			}
+			
 		} catch(DbException e) {
 			Alertas.showAlert("Erro ao inserir produto", null, e.getMessage(), AlertType.ERROR);
 		}
@@ -211,21 +217,23 @@ public class PedidosFormController implements Initializable {
 			Entregador entregador = new Entregador();
 			Cliente cliente = new Cliente();
 			
-			if((getClienteDados()!= null) && (getProdutoDados()!= null) && (getEntregadorDados()!= null)) {
+			if((getClienteDados()!= null) && (getProdutoDados()!= null) && (getEntregadorDados()!= null))
+			{
 				cliente = getClienteDados();
 				produto = getProdutoDados();
 				entregador = getEntregadorDados();
+				
 			} else {
-				Alertas.showAlert("Erro!!", null, "Existem entidades vazias!!", AlertType.ERROR);
+				Alertas.showAlert("Erro!!", null, "Existem entidades vazias", AlertType.ERROR);
 				return null;
 			}
 			
 			
 	
 			
-		
+			
 	
-			obj.setId(Utilitarios.tentaAttParaInteiro(textFieldId.getText()));
+			obj.setId(Utilitarios.tentaAttParaInteiro(textFieldId.getText()));  
 			obj.setCliente(servicoClientes.findByName(cliente.getNome()));
 			obj.setEntregador(servicoEntregadores.findByName(entregador.getNome()));
 			obj.setProdutos(servicoProdutos.findByName(produto.getNome()));

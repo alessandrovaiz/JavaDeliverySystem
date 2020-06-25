@@ -41,6 +41,7 @@ import model.servicos.ProdutosServico;
 public class PedidosController implements Initializable, MudaDadosListener {
 
 	private PedidosServico servico;
+
 	
 	
 	
@@ -259,6 +260,9 @@ public class PedidosController implements Initializable, MudaDadosListener {
 				}
 
 				setGraphic(button);
+				
+				
+				
 				button.setOnAction(event -> removeEntidade(obj));
 			}
 		});
@@ -271,6 +275,7 @@ public class PedidosController implements Initializable, MudaDadosListener {
 				throw new IllegalStateException("O Serviço está nulo!");
 			}
 			try{
+				
 				servico.remove(obj);
 				updateTableView();
 			}

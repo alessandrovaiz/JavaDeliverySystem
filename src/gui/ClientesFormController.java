@@ -51,18 +51,18 @@ public class ClientesFormController implements Initializable {
 	private void onBtAdicionarAcao(ActionEvent evento) {
 
 		if (entidadeCliente == null) {
-			throw new IllegalStateException("Cliente não pode ser nulo!");
+			throw new IllegalStateException("Cliente nï¿½o pode ser nulo!");
 		}
 		
 		
 		
 		if(textFieldNome.getText()==null) {
-			Alertas.showAlert("Erro", "O campo nome não pode ser vazio! ", null, AlertType.CONFIRMATION);
+			Alertas.showAlert("Erro", "O campo nome nï¿½o pode ser vazio! ", null, AlertType.CONFIRMATION);
 			return;
 		}
 		
 		if(textFieldEndereco.getText()==null) {
-			Alertas.showAlert("Erro", "O campo endereco não pode ser vazio! ", null, AlertType.CONFIRMATION);
+			Alertas.showAlert("Erro", "O campo endereco nï¿½o pode ser vazio! ", null, AlertType.CONFIRMATION);
 			return;
 		} 
 		
@@ -117,7 +117,7 @@ public class ClientesFormController implements Initializable {
 
 	public void atualizaDadosForm() {
 		if (entidadeCliente == null) {
-			throw new IllegalStateException("Entidade está nula");
+			throw new IllegalStateException("Entidade estï¿½ nula");
 		}
 
 		textFieldId.setText(String.valueOf(entidadeCliente.getId()));

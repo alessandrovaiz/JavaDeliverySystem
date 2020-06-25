@@ -101,7 +101,7 @@ public class PedidoDaoJDBC implements PedidoDao{
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM pedido WHERE Id = ?");
+				"DELETE FROM pedido WHERE id = ?");
 
 			st.setInt(1, id);
 

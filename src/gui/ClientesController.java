@@ -89,8 +89,8 @@ public class ClientesController implements Initializable, MudaDadosListener {
 
 	public void updateTableView() {
 		if (servico == null) {
-			throw new IllegalStateException("O serviço está nulo"); // evita que o programador esqueça de injetar o
-																	// serviço
+			throw new IllegalStateException("O serviÃ§o estÃ¡ nulo"); // evita que o programador esqueÃ§a de injetar o
+																	// serviÃ§o
 		}
 		List<Cliente> list = servico.findAll();
 		for (Cliente p : list) {
@@ -226,10 +226,10 @@ public class ClientesController implements Initializable, MudaDadosListener {
 	}
 
 	private void removeEntidade(Cliente obj) {
-		Optional<ButtonType> resultado = Alertas.showConfirmation("Confirmação", "Você tem certeza que quer excluir?");
+		Optional<ButtonType> resultado = Alertas.showConfirmation("ConfirmaÃ§Ã£o", "VocÃª tem certeza que quer excluir?");
 		if(resultado.get() == ButtonType.OK) {
 			if(servico==null) {
-				throw new IllegalStateException("O Serviço está nulo!");
+				throw new IllegalStateException("O ServiÃ§o estÃ¡ nulo!");
 			}
 			try{
 				servico.remove(obj);

@@ -31,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entidades.Entregador;
 import model.servicos.EntregadoresServico;
+import model.servicos.PedidosServico;
 
 public class EntregadoresController implements Initializable, MudaDadosListener {
 
@@ -46,6 +47,8 @@ public class EntregadoresController implements Initializable, MudaDadosListener 
 	private TableColumn<Entregador, Double> tableColumnCustoEntrega;
 	@FXML
 	private TableColumn<Entregador, String> tableColumnStatus;
+	@FXML
+	private TableColumn<Entregador, Entregador> tableColumnAlterarStatus;
 	@FXML
 	private TableColumn<Entregador, Entregador> tableColumnEditar;
 	@FXML
@@ -97,6 +100,7 @@ public class EntregadoresController implements Initializable, MudaDadosListener 
 		tableViewEntregador.setItems(obsList);
 		initEditarBotoes();
 		initExcluirBotoes();
+		initAlterarStatusBotoes();
 	}
 
 	private void criarFormularioDialogo(Entregador entregador, String nomeAbsoluto, Stage parentStage) {
@@ -123,12 +127,65 @@ public class EntregadoresController implements Initializable, MudaDadosListener 
 			Alertas.showAlert("IOException", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
 		}
 	}
+	
+		private void abreAlterarStatus(Entregador entregador , String nomeAbsoluto,Stage parentStage) {
+		
+		try { 
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(nomeAbsoluto));
+		
+		Pane painel = loader.load();
+		
+		AlteraStatusEntregadorController controller = loader.getController();
+		controller.setEntregadoresServico(new EntregadoresServico());
+		controller.setEntidadeEntregador(entregador);;
+		
+		controller.inscreveListener(this);
+		controller.atualizaDadosForm();
+		
+		Stage stageDialogo = new Stage();
+		stageDialogo.setTitle("Alterar Status Entregador");
+		stageDialogo.setScene(new Scene(painel));
+		stageDialogo.setResizable(false);
+		stageDialogo.initOwner(parentStage);
+		stageDialogo.initModality(Modality.WINDOW_MODAL);
+		stageDialogo.showAndWait();
+	
+		} catch (IOException e) {
+			Alertas.showAlert("IOException", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
+		}
+	
+	}
 
 	@Override
 	public void atualizaDados() {
 		updateTableView();
 
 	}
+	
+	private void initAlterarStatusBotoes() {
+		tableColumnAlterarStatus.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnAlterarStatus.setCellFactory(param -> new TableCell<Entregador, Entregador>() {
+			private final Button button = new Button("Status");
+
+			@Override
+			protected void updateItem(Entregador obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				
+				
+				
+				
+				button.setOnAction(
+						event -> abreAlterarStatus(obj, "/gui/AlteraStatusEntregadorForm.fxml", Utilitarios.palcoAtual(event)));
+			}
+			
+		});
+	}
+	
 
 	private void initEditarBotoes() {
 		tableColumnEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));

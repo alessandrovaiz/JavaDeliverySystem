@@ -14,16 +14,33 @@ public class PedidosServico {
 		return dao.findAll();
 	}
 	
+
+	
 	public void salvaOuAtualiza(Pedido obj) {
 		if (obj.getId()==null) {
+			
+			
+			
 			dao.insert(obj);
+			
+			
+			
 		}
-		else {
+		else { // a necessidade do pedido aux é para que o rank não seja reinicializado na hora de atualizar o pedido
+			
+			
+			Pedido aux = dao.findById(obj.getId());
+			obj.setStatus(aux.getStatus());
+			
+			
 			dao.update(obj);
 		}
+
+	
 	}
 
 	public void remove(Pedido obj) {
+		
 		dao.deleteById(obj.getId());
 	}
 	

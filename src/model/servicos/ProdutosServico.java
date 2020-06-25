@@ -22,7 +22,11 @@ public class ProdutosServico {
 			dao.update(obj);
 		}
 	}
-
+	
+	public void update(Produto obj) {
+		dao.update(obj);
+	}
+	
 	public void remove(Produto obj) {
 		dao.deleteById(obj.getId());
 	}

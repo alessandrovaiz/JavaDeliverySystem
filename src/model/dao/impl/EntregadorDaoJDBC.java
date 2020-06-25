@@ -126,7 +126,7 @@ public class EntregadorDaoJDBC implements EntregadorDao{
 				obj.setId(rs.getInt("id"));
 				obj.setNome(rs.getString("nome"));
 				obj.setValorPorEntrega(rs.getDouble("custo_p_entrega"));
-				obj.setStatus(rs.getInt("`status`"));
+				obj.setStatus(rs.getInt("status"));
 				
 				return obj;
 				
@@ -255,6 +255,32 @@ public class EntregadorDaoJDBC implements EntregadorDao{
 		}
 		
 	}
+
+	@Override
+	public void atualizaStatus(Entregador obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+				"UPDATE entregador " +
+				"SET `status`=?" +
+				" WHERE id = ?");
+			
+			
+			st.setInt(1, obj.getStatus());
+			
+			
+			
+			st.setInt(2, obj.getId());
+
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} 
+		finally {
+			DB.closeStatement(st);
+		}
+	}	
 	
 	
 	
